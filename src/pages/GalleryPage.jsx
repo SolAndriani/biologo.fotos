@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UploadForm from "../components/UploadForm";
+import UploadForm from "../footer/UploadForm";
 import AnimalesGallery from "./AnimalesGallery";
 import BlackAndWhiteGallery from "./BlackAndWhiteGallery";
 import PaisajesGallery from "./PaisajesGallery";
