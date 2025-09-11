@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Masonry from "react-masonry-css";
 import axios from "axios";
-import UploadForm from "./footer/UploadForm";
+import UploadForm from "./Footer/UploadForm";
 import "yet-another-react-lightbox/styles.css";
 import Lightbox from "yet-another-react-lightbox";
 
