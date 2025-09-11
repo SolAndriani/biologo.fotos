@@ -5,9 +5,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
+  color: #111;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+main {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  padding-top: 2rem;
+  box-sizing: border-box;
+}
+
+
+
+@media (max-width: 480px) {
+  main {
+    margin: 1rem;
+    padding: 0 0.5rem;
+    padding-top: 3rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; 
+}
+#sobre-mi::before,
+#coleccion::before,
+#contacto::before {
+  content: "";
+  display: block;
+  height: 150px;         
+  margin-top: -100px;
+  visibility: hidden;
+}
+@media (max-width: 768px) {
+  main {
+    max-width: 90%;
+  }
+  .side-menu {
+    width: 80vw;
+  }
 }

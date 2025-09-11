@@ -1,0 +1,83 @@
+
+
+.photos-page {
+  background-color: #fdfdfd;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Masonry layout with spacing */
+.gallery-grid {
+  column-count: 5;
+  column-gap: 0.5rem; /* espacio horizontal entre columnas */
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 0.5rem; 
+  display: block;
+  width: 100%;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border: none;         /* Bordes rectos */
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* sombra sutil */
+}
+
+/* Hover efecto suave */
+.gallery-item img:hover {
+  filter: brightness(0.95);
+  transform: scale(1.01);
+}
+
+/* No hay fotos */
+.no-photos {
+  text-align: center;
+  color: #888;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Lightbox override */
+body.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+/* ================================
+   Responsive Column Count
+================================= */
+
+@media (max-width: 1600px) {
+  .gallery-grid {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gallery-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 800px) {
+  .gallery-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 500px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}

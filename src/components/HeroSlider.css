@@ -1,0 +1,40 @@
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  max-height: 1500px;
+  min-height: 30px;
+  overflow: hidden;
+}
+
+.hero-slider img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%; 
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+
+.hero-slider img.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .hero-slider img {
+    object-position: center 50%;
+  }
+}
