@@ -6,7 +6,7 @@ import UploadForm from "./Footer/UploadForm";
 import "yet-another-react-lightbox/styles.css";
 import Lightbox from "yet-another-react-lightbox";
 
-// Variable de entorno para backend
+// Variable de entorno para backend (Vite)
 const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 
 // Fotos estáticas
