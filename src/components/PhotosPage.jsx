@@ -6,8 +6,10 @@ import UploadForm from "./Footer/UploadForm";
 import "yet-another-react-lightbox/styles.css";
 import Lightbox from "yet-another-react-lightbox";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+// Variable de entorno para backend
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 
+// Fotos estáticas
 const staticPhotos = {
   animales: Array.from({ length: 24 }, (_, i) => `${backendUrl}/uploads/animales/animal${i + 1}.jpg`),
   paisajes: Array.from({ length: 13 }, (_, i) => `${backendUrl}/uploads/paisajes/paisaje${i + 1}.jpg`),
@@ -22,11 +24,14 @@ export default function PhotosPage({ loggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // Cargar fotos
   const loadPhotos = async () => {
     if (!lowerCategory) return;
+
     const staticImages = staticPhotos[lowerCategory] || [];
     try {
       const res = await axios.get(`${backendUrl}/api/photos/category/${lowerCategory}`);
+      // Las rutas que devuelve el backend deben ser relativas (ej: /uploads/...)
       const dynamicPhotos = res.data.photos.map(url => `${backendUrl}${url}`);
       const allPhotos = [...staticImages, ...dynamicPhotos.filter(url => !staticImages.includes(url))];
       setPhotos(allPhotos);
@@ -47,7 +52,6 @@ export default function PhotosPage({ loggedIn }) {
     500: 1,
   };
 
-  // Preparar fotos para el lightbox (objeto con src)
   const slides = photos.map(src => ({ src }));
 
   return (
@@ -86,7 +90,6 @@ export default function PhotosPage({ loggedIn }) {
           slides={slides}
           index={photoIndex}
           onIndexChange={setPhotoIndex}
-          // opciones extra, ej: enableZoom, plugins, etc.
         />
       )}
     </div>
