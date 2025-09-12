@@ -1,58 +1,74 @@
-.gallery-page {
-  padding: 1rem;
-  max-width: 1600px;
-  margin: 0 auto;
+/* Container general */
+.photos-page, .gallery-page {
+  background-color: #fdfdfd;
+  min-height: 100vh;
+  padding: 2rem 1rem;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.5rem; /* espacio entre imágenes */
+/* Masonry grid */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -0.5rem; /* espacio negativo igual al gap */
+  width: auto;
 }
 
-.gallery-grid img {
+.my-masonry-grid_column {
+  padding-left: 0.5rem; /* igual al gap */
+  background-clip: padding-box;
+}
+
+/* Cada foto */
+.my-masonry-grid_column img {
   width: 100%;
-  height: 180px;       /* altura uniforme */
-  object-fit: cover;   /* recorta sin deformar */
-  border-radius: 4px;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem; /* espacio entre fotos */
+  object-fit: cover;
+  border-radius: 6px; /* opcional, bordes redondeados */
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.gallery-grid img:hover {
-  transform: scale(1.02);
+.my-masonry-grid_column img:hover {
   filter: brightness(0.95);
+  transform: scale(1.01);
 }
 
 /* Lightbox */
-.lightbox-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+.lightbox-overlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
 }
 
-.lightbox-image {
-  max-width: 90%;
-  max-height: 90%;
+/* Titulos de secciones */
+.photos-page h1, .gallery-page h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-.lightbox-btn {
-  position: absolute;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
+/* Mensajes de no fotos */
+.no-photos {
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+  margin-top: 3rem;
 }
 
-.prev-btn { left: 1rem; }
-.next-btn { right: 1rem; }
-.close-btn { top: 1rem; right: 1rem; font-size: 2.5rem; }
+/* ==============================
+   Responsive
+================================= */
+@media (max-width: 1200px) {
+  .my-masonry-grid_column {
+    width: 50%; /* 2 columnas */
+  }
+}
+
+@media (max-width: 800px) {
+  .my-masonry-grid_column {
+    width: 100%; /* 1 columna */
+  }
+}
