@@ -7,12 +7,10 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import "./PhotosPage.css";
 
-// 🔹 URL del backend
-// Cambia entre producción y local según necesites
 const backendUrl = "https://biologo-fotos-backend.onrender.com";
-// const backendUrl = "http://localhost:4000"; // Para pruebas locales
 
-// 🔹 Fotos estáticas por categoría
+
+
 const staticPhotos = {
   animales: Array.from({ length: 24 }, (_, i) => `${backendUrl}/uploads/animales/animal${i + 1}.jpg`),
   paisajes: Array.from({ length: 13 }, (_, i) => `${backendUrl}/uploads/paisajes/paisaje${i + 1}.jpg`),

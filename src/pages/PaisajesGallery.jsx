@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const backendUrl = 'http://localhost:4000';
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
 
 export default function PaisajesGallery() {
   
