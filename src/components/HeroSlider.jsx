@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HeroSlider.css';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 
 const images = ['Aguila.jpg','paisaje.jpg','Pavo.jpg','pinguino.jpg','Tero.jpg','Vaca.jpg','vuelo.jpg'];
 

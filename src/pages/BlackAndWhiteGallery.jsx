@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 
 export default function BlackAndWhiteGallery() {
 
