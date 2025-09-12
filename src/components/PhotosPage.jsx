@@ -3,13 +3,16 @@ import { useParams } from "react-router-dom";
 import Masonry from "react-masonry-css";
 import axios from "axios";
 import UploadForm from "./Footer/UploadForm";
-import "yet-another-react-lightbox/styles.css";
 import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import "./PhotosPage.css";
 
-// Variable de entorno para backend (Vite)
-const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+// 🔹 URL del backend
+// Cambia entre producción y local según necesites
+const backendUrl = "https://biologo-fotos-backend.onrender.com";
+// const backendUrl = "http://localhost:4000"; // Para pruebas locales
 
-// Fotos estáticas
+// 🔹 Fotos estáticas por categoría
 const staticPhotos = {
   animales: Array.from({ length: 24 }, (_, i) => `${backendUrl}/uploads/animales/animal${i + 1}.jpg`),
   paisajes: Array.from({ length: 13 }, (_, i) => `${backendUrl}/uploads/paisajes/paisaje${i + 1}.jpg`),
@@ -18,20 +21,19 @@ const staticPhotos = {
 
 export default function PhotosPage({ loggedIn }) {
   const { category } = useParams();
-  const lowerCategory = category?.toLowerCase();
+  const lowerCategory = category?.toLowerCase().replace(/[\s-]/g, "");
 
   const [photos, setPhotos] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  // Cargar fotos
+  // 🔹 Cargar fotos estáticas + dinámicas
   const loadPhotos = async () => {
     if (!lowerCategory) return;
-
     const staticImages = staticPhotos[lowerCategory] || [];
+
     try {
       const res = await axios.get(`${backendUrl}/api/photos/category/${lowerCategory}`);
-      // Las rutas que devuelve el backend deben ser relativas (ej: /uploads/...)
       const dynamicPhotos = res.data.photos.map(url => `${backendUrl}${url}`);
       const allPhotos = [...staticImages, ...dynamicPhotos.filter(url => !staticImages.includes(url))];
       setPhotos(allPhotos);
@@ -52,45 +54,47 @@ export default function PhotosPage({ loggedIn }) {
     500: 1,
   };
 
-  const slides = photos.map(src => ({ src }));
+  if (!lowerCategory || !staticPhotos[lowerCategory]) return <p>Categoría no encontrada</p>;
 
   return (
     <div className="photos-page">
-      <h1>{lowerCategory?.charAt(0).toUpperCase() + lowerCategory?.slice(1)}</h1>
+      <h1>{category}</h1>
 
       {loggedIn && <UploadForm categorySelected={lowerCategory} onUploadSuccess={loadPhotos} />}
 
       {photos.length === 0 ? (
         <p>No hay fotos en esta categoría.</p>
       ) : (
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {photos.map((foto, index) => (
-            <img
-              key={index}
-              src={foto}
-              alt={`${lowerCategory}-${index}`}
-              onClick={() => {
-                setPhotoIndex(index);
-                setIsOpen(true);
-              }}
-              style={{ cursor: "pointer" }}
-            />
-          ))}
-        </Masonry>
-      )}
+        <>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {photos.map((foto, index) => (
+              <img
+                key={index}
+                src={foto}
+                alt={`${lowerCategory}-${index}`}
+                onClick={() => {
+                  setPhotoIndex(index);
+                  setIsOpen(true);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            ))}
+          </Masonry>
 
-      {isOpen && (
-        <Lightbox
-          open={isOpen}
-          close={() => setIsOpen(false)}
-          slides={slides}
-          index={photoIndex}
-          onIndexChange={setPhotoIndex}
-        />
+          {isOpen && (
+            <Lightbox
+              open={isOpen}
+              slides={photos.map(src => ({ src }))}
+              index={photoIndex}
+              close={() => setIsOpen(false)}
+              onIndexChange={setPhotoIndex}
+            />
+          )}
+        </>
       )}
     </div>
   );
