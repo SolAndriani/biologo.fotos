@@ -1,83 +1,58 @@
-
-
-.photos-page {
-  background-color: #fdfdfd;
-  min-height: 100vh;
-  padding: 2rem 1rem;
+.gallery-page {
+  padding: 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
-/* Masonry layout with spacing */
 .gallery-grid {
-  column-count: 5;
-  column-gap: 0.5rem; /* espacio horizontal entre columnas */
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem; /* espacio entre imágenes */
 }
 
-.gallery-item {
-  break-inside: avoid;
-  margin-bottom: 0.5rem; 
-  display: block;
+.gallery-grid img {
   width: 100%;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  border: none;         /* Bordes rectos */
+  height: 180px;       /* altura uniforme */
+  object-fit: cover;   /* recorta sin deformar */
+  border-radius: 4px;
   cursor: pointer;
-  transition: filter 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* sombra sutil */
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* Hover efecto suave */
-.gallery-item img:hover {
+.gallery-grid img:hover {
+  transform: scale(1.02);
   filter: brightness(0.95);
-  transform: scale(1.01);
 }
 
-/* No hay fotos */
-.no-photos {
-  text-align: center;
-  color: #888;
-  font-size: 1.5rem;
-  margin-top: 3rem;
-  font-family: 'Segoe UI', sans-serif;
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-/* Lightbox override */
-body.ReactModal__Body--open {
-  overflow: hidden;
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
 }
 
-/* ================================
-   Responsive Column Count
-================================= */
-
-@media (max-width: 1600px) {
-  .gallery-grid {
-    column-count: 4;
-  }
+.lightbox-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
 }
 
-@media (max-width: 1200px) {
-  .gallery-grid {
-    column-count: 3;
-  }
-}
-
-@media (max-width: 800px) {
-  .gallery-grid {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 500px) {
-  .gallery-grid {
-    column-count: 1;
-  }
-}
+.prev-btn { left: 1rem; }
+.next-btn { right: 1rem; }
+.close-btn { top: 1rem; right: 1rem; font-size: 2.5rem; }
