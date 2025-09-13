@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+// React (CRA) usa REACT_APP_*
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 export default function LoginForm({ onClose, onLoginSuccess }) {
   const [username, setUsername] = useState("");
@@ -28,9 +29,18 @@ export default function LoginForm({ onClose, onLoginSuccess }) {
       }
     } catch (err) {
       console.error("Error en login:", err);
-      setError("Error al iniciar sesión. Intenta nuevamente.");
+
+      if (err.response) {
+        setError(err.response.data.message || "Usuario o contraseña incorrectos");
+      } else if (err.request) {
+        setError("No se pudo conectar con el servidor. Intenta nuevamente.");
+      } else {
+        setError("Error inesperado. Intenta nuevamente.");
+      }
     }
   };
+
+  console.log("Backend URL:", backendUrl);
 
   return (
     <div className="modal-overlay">
