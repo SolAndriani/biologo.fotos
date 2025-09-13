@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./UploadForm.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+// URL del backend desde variable de entorno o localhost como fallback
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const UploadForm = ({ categorySelected, onUploadSuccess }) => {
   const [photo, setPhoto] = useState(null);
@@ -13,6 +15,7 @@ const UploadForm = ({ categorySelected, onUploadSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!photo) return setMessage("Por favor selecciona una foto.");
     if (!category) return setMessage("Por favor selecciona una categoría.");
 
@@ -23,6 +26,7 @@ const UploadForm = ({ categorySelected, onUploadSuccess }) => {
     try {
       const res = await axios.post(`${backendUrl}/api/photos/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true, // útil si usas cookies
       });
 
       const uploadedPhotoUrl = res.data.photoUrl;
@@ -33,7 +37,17 @@ const UploadForm = ({ categorySelected, onUploadSuccess }) => {
       if (onUploadSuccess) onUploadSuccess(uploadedPhotoUrl);
     } catch (error) {
       console.error("Error subiendo la foto:", error);
-      setMessage("Error subiendo la foto.");
+
+      if (error.response) {
+        // Error devuelto por el backend
+        setMessage(error.response.data.message || `Error: ${error.response.status}`);
+      } else if (error.request) {
+        // No hubo respuesta del backend
+        setMessage("No se pudo conectar con el servidor. Revisa la URL y CORS.");
+      } else {
+        // Otro error inesperado
+        setMessage(`Error inesperado: ${error.message}`);
+      }
     }
   };
 

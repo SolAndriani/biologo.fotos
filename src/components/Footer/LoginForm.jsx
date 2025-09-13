@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
 
-// React (CRA) usa REACT_APP_*
+// URL del backend desde variable de entorno o localhost como fallback
 const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 export default function LoginForm({ onClose, onLoginSuccess }) {
@@ -14,9 +14,8 @@ export default function LoginForm({ onClose, onLoginSuccess }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${backendUrl}/api/auth/login`, {
-        username,
-        password,
+      const res = await axios.post(`${backendUrl}/api/auth/login`, { username, password }, {
+        withCredentials: true, // si usas cookies
       });
 
       const { user } = res.data;
@@ -31,11 +30,14 @@ export default function LoginForm({ onClose, onLoginSuccess }) {
       console.error("Error en login:", err);
 
       if (err.response) {
-        setError(err.response.data.message || "Usuario o contraseña incorrectos");
+        // Error devuelto por el backend
+        setError(err.response.data.message || `Error: ${err.response.status}`);
       } else if (err.request) {
-        setError("No se pudo conectar con el servidor. Intenta nuevamente.");
+        // No hubo respuesta del backend
+        setError("No se pudo conectar con el servidor. Revisa la URL y CORS.");
       } else {
-        setError("Error inesperado. Intenta nuevamente.");
+        // Otro error inesperado
+        setError(`Error inesperado: ${err.message}`);
       }
     }
   };
