@@ -2,54 +2,38 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
 
-// URL del backend desde variable de entorno o localhost como fallback
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
-
-export default function LoginForm({ onClose, onLoginSuccess }) {
+export default function LoginForm({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
-      const res = await axios.post(`${backendUrl}/api/auth/login`, { username, password }, {
-        withCredentials: true, // si usas cookies
-      });
+      const res = await axios.post(`${backendUrl}/api/auth/login`, { username, password });
 
-      const { user } = res.data;
-
-      if (user) {
-        onLoginSuccess(user);
+      if (res.data?.user) {
         setError("");
-      } else {
-        setError("Usuario o contraseña incorrectos");
+        if (onLoginSuccess) onLoginSuccess(res.data.user);
+        alert(`¡Bienvenido ${res.data.user.username}!`);
       }
     } catch (err) {
       console.error("Error en login:", err);
-
-      if (err.response) {
-        // Error devuelto por el backend
-        setError(err.response.data.message || `Error: ${err.response.status}`);
-      } else if (err.request) {
-        // No hubo respuesta del backend
-        setError("No se pudo conectar con el servidor. Revisa la URL y CORS.");
+      if (err.response && err.response.status === 401) {
+        setError(err.response.data.msg || "Usuario o contraseña incorrectos");
       } else {
-        // Otro error inesperado
-        setError(`Error inesperado: ${err.message}`);
+        setError("No se pudo conectar con el servidor");
       }
     }
   };
 
-  console.log("Backend URL:", backendUrl);
-
   return (
     <div className="modal-overlay">
       <form className="modal-form" onSubmit={handleSubmit}>
-        <span className="modal-close" onClick={onClose}>
-          &times;
-        </span>
         <h3>Login</h3>
         <input
           type="text"
@@ -66,7 +50,7 @@ export default function LoginForm({ onClose, onLoginSuccess }) {
           required
         />
         <button type="submit">Ingresar</button>
-        {error && <p className="error">{error}</p>}
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
       </form>
     </div>
   );

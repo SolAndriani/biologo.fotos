@@ -7,10 +7,9 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import "./PhotosPage.css";
 
-const backendUrl = "https://biologo-fotos-backend.onrender.com";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-
-
+// Fotos estáticas
 const staticPhotos = {
   animales: Array.from({ length: 24 }, (_, i) => `${backendUrl}/uploads/animales/animal${i + 1}.jpg`),
   paisajes: Array.from({ length: 13 }, (_, i) => `${backendUrl}/uploads/paisajes/paisaje${i + 1}.jpg`),
@@ -25,14 +24,14 @@ export default function PhotosPage({ loggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  // 🔹 Cargar fotos estáticas + dinámicas
   const loadPhotos = async () => {
     if (!lowerCategory) return;
     const staticImages = staticPhotos[lowerCategory] || [];
 
     try {
       const res = await axios.get(`${backendUrl}/api/photos/category/${lowerCategory}`);
-      const dynamicPhotos = res.data.photos.map(url => `${backendUrl}${url}`);
+      const dynamicPhotos = res.data.photos.map(photo => `${backendUrl}${photo.url}`);
+
       const allPhotos = [...staticImages, ...dynamicPhotos.filter(url => !staticImages.includes(url))];
       setPhotos(allPhotos);
     } catch (err) {
@@ -45,12 +44,7 @@ export default function PhotosPage({ loggedIn }) {
     loadPhotos();
   }, [lowerCategory]);
 
-  const breakpointColumnsObj = {
-    default: 4,
-    1100: 3,
-    700: 2,
-    500: 1,
-  };
+  const breakpointColumnsObj = { default: 4, 1100: 3, 700: 2, 500: 1 };
 
   if (!lowerCategory || !staticPhotos[lowerCategory]) return <p>Categoría no encontrada</p>;
 
