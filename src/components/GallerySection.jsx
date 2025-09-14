@@ -7,7 +7,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 const categories = [
   {
     name: 'Animales',
-    image: `${backendUrl}/uploads/Animales/animal16.jpg`,
+    image: `${backendUrl}/uploads/animales/animal16.jpg`,
     route: '/Animales',
   },
   {

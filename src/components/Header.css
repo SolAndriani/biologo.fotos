@@ -74,8 +74,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-
-
 .menu-button {
   background: none;
   border: none;
@@ -85,12 +83,14 @@ body {
   transition: color 0.3s ease;
 }
 
+/* hover y focus sin fondo azul */
 .menu-button:hover,
 .menu-button:focus {
   color: #4c7500;
-  outline: none; 
+  outline: none;
+  background: none;
+  box-shadow: none;
 }
-
 
 .side-menu {
   position: fixed;
@@ -136,6 +136,8 @@ body {
 .side-menu nav ul li a:focus {
   color: #4c7500;
   outline: none;
+  background: none;
+  box-shadow: none;
 }
 
 /* === BOTÓN CIERRE === */
@@ -156,6 +158,8 @@ body {
 .close-button:focus {
   color: #4c7500;
   outline: none;
+  background: none;
+  box-shadow: none;
 }
 
 /* === BACKDROP === */

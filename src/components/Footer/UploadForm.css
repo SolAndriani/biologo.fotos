@@ -1,70 +1,76 @@
 .upload-form {
-  width: 100%;
-  max-width: 500px;
-  background: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  font-family: "Montserrat", sans-serif;
-  transition: all 0.3s ease;
-}
-
-.upload-form h2 {
-  margin: 0;
-  color: #333;
-  font-weight: 600;
-  font-size: 1.3rem;
-  text-align: center;
-}
-
-.upload-form input[type="file"],
-.upload-form select {
-  padding: 0.6rem;
+  gap: 1rem;
+  max-width: 400px;       /* ancho máximo en pantallas grandes */
+  width: 90%;             /* ocupa casi todo el ancho en móviles */
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: #fff;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
-.upload-form button {
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+input[type="file"], select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button {
   padding: 0.7rem;
   border: none;
-  border-radius: 6px;
-  background-color: #556b2f;
-  color: white;
-  font-weight: 600;
+  background-color: #0077cc;
+  color: #fff;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.2s ease;
 }
 
-.upload-form button:hover {
-  background-color: #3d4b1e;
+button:hover {
+  background-color: #005fa3;
 }
 
-.upload-form p {
-  margin-top: 0.8rem;
-  text-align: center;
-  color: #555;
-  font-size: 0.95rem;
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
 }
 
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
 
-@media (max-width: 480px) {
+/* ==============================
+   Responsive para pantallas pequeñas
+================================= */
+@media (max-width: 500px) {
   .upload-form {
-    width: 95%;
-    padding: 1rem;
+    padding: 0.8rem;
   }
 
-  .upload-form h2 {
-    font-size: 1.1rem;
-  }
-
-  .upload-form input[type="file"],
-  .upload-form select,
-  .upload-form button {
+  label, input[type="file"], select, button {
     font-size: 0.9rem;
+  }
+
+  button {
+    padding: 0.6rem;
   }
 }

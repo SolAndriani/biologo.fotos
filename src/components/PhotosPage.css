@@ -1,4 +1,4 @@
-/* Container general */
+
 .photos-page, .gallery-page {
   background-color: #fdfdfd;
   min-height: 100vh;
@@ -7,7 +7,28 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Masonry grid */
+.main-category-photo-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.main-category-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.main-category-photo:hover {
+  filter: brightness(0.95);
+  transform: scale(1.01);
+}
+
+/* ==============================
+   Masonry grid
+================================= */
 .my-masonry-grid {
   display: flex;
   margin-left: -0.5rem; /* espacio negativo igual al gap */
@@ -19,14 +40,13 @@
   background-clip: padding-box;
 }
 
-/* Cada foto */
 .my-masonry-grid_column img {
   width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 0.5rem; /* espacio entre fotos */
+  margin-bottom: 0.5rem; 
   object-fit: cover;
-  border-radius: 6px; /* opcional, bordes redondeados */
+  border-radius: 0px; 
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -36,21 +56,20 @@
   transform: scale(1.01);
 }
 
-/* Lightbox */
+
 .lightbox-overlay img {
   max-width: 90vw;
   max-height: 90vh;
   object-fit: contain;
 }
 
-/* Titulos de secciones */
+
 .photos-page h1, .gallery-page h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
 }
 
-/* Mensajes de no fotos */
 .no-photos {
   text-align: center;
   color: #888;
@@ -58,9 +77,7 @@
   margin-top: 3rem;
 }
 
-/* ==============================
-   Responsive
-================================= */
+
 @media (max-width: 1200px) {
   .my-masonry-grid_column {
     width: 50%; /* 2 columnas */

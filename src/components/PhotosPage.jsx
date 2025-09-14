@@ -24,18 +24,22 @@ export default function PhotosPage({ loggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
+  // Cargar fotos dinámicas + estáticas
   const loadPhotos = async () => {
     if (!lowerCategory) return;
     const staticImages = staticPhotos[lowerCategory] || [];
 
     try {
       const res = await axios.get(`${backendUrl}/api/photos/category/${lowerCategory}`);
-      const dynamicPhotos = res.data.photos.map(photo => `${backendUrl}${photo.url}`);
+      const photosFromServer = res.data?.photos || [];
+      const dynamicPhotos = photosFromServer.map(photo => `${backendUrl}${photo.url}`);
 
+      // Combinar fotos, evitando duplicados
       const allPhotos = [...staticImages, ...dynamicPhotos.filter(url => !staticImages.includes(url))];
       setPhotos(allPhotos);
     } catch (err) {
       console.error("Error cargando fotos:", err);
+      // fallback a fotos estáticas
       setPhotos(staticImages);
     }
   };
