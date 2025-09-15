@@ -13,7 +13,7 @@ export default function SocialIcons() {
         <FaInstagram size={24} />
       </a>
       <a
-        href="https://twitter.com"
+        href="https://x.com/Agustinthewild?t=igjDBxkw28LRyo2cl4Bm1g&s=08"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Twitter"
