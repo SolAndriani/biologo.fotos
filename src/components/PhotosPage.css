@@ -26,12 +26,10 @@
   transform: scale(1.01);
 }
 
-/* ==============================
-   Masonry grid
-================================= */
+
 .my-masonry-grid {
   display: flex;
-  margin-left: -0.5rem; /* espacio negativo igual al gap */
+  margin-left: -0.5rem; 
   width: auto;
 }
 
