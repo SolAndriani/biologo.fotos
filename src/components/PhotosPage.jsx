@@ -54,7 +54,7 @@ export default function PhotosPage({ loggedIn }) {
 
   return (
     <div className="photos-page">
-      <h1>{category}</h1>
+
 
       {loggedIn && <UploadForm categorySelected={lowerCategory} onUploadSuccess={loadPhotos} />}
 

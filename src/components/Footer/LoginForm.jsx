@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
 
-export default function LoginForm({ onLoginSuccess }) {
+export default function LoginForm({ onLoginSuccess, onClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,6 +20,7 @@ export default function LoginForm({ onLoginSuccess }) {
         setError("");
         if (onLoginSuccess) onLoginSuccess(res.data.user);
         alert(`¡Bienvenido ${res.data.user.username}!`);
+        if (onClose) onClose();
       }
     } catch (err) {
       console.error("Error en login:", err);
@@ -34,6 +35,7 @@ export default function LoginForm({ onLoginSuccess }) {
   return (
     <div className="modal-overlay">
       <form className="modal-form" onSubmit={handleSubmit}>
+        <span className="modal-close" onClick={onClose}>×</span>
         <h3>Login</h3>
         <input
           type="text"
@@ -48,9 +50,10 @@ export default function LoginForm({ onLoginSuccess }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="current-password"
         />
         <button type="submit">Ingresar</button>
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

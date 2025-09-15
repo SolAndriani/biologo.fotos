@@ -3,7 +3,7 @@ import './HeroSlider.css';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 
-const images = ['Aguila.jpg','paisaje.jpg','Pavo.jpg','pinguino.jpg','Tero.jpg','Vaca.jpg','vuelo.jpg'];
+const images = ['Aguila.jpg','paisaje.jpg','pavo.jpg','pinguino.jpg','Tero.jpg','Vaca.jpg','vuelo.jpg'];
 
 export default function HeroSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);

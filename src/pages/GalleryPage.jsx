@@ -21,7 +21,7 @@ export default function GalleryPage() {
       <UploadForm onUploadSuccess={handleUploadSuccess} />
 
       <section>
-        <h2>Animales</h2>
+          <h2>Animales</h2> 
         <AnimalesGallery refresh={refreshAnimales} category="animales" />
       </section>
 
