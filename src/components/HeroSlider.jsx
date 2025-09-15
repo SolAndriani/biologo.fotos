@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './HeroSlider.css';
+import React, { useState, useEffect, useRef } from "react";
+import "./HeroSlider.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
-const images = ['Aguila.jpg','paisaje.jpg','pavo.jpg','pinguino.jpg','Tero.jpg','Vaca.jpg','vuelo.jpg'];
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+const images = ["Aguila.jpg","paisaje.jpg","pavo.jpg","pinguino.jpg","Tero.jpg","Vaca.jpg","vuelo.jpg"];
 
 export default function HeroSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const timerRef = useRef(null);
   const pausedRef = useRef(false);
 
   useEffect(() => {
     startTimer();
     return () => clearInterval(timerRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startTimer = () => {
@@ -25,31 +25,47 @@ export default function HeroSlider() {
   const handleMouseEnter = () => { pausedRef.current = true; };
   const handleMouseLeave = () => { pausedRef.current = false; };
 
-  return (
-    <section
-      className="hero-slider"
-      aria-roledescription="carousel"
-      aria-label="Galería de fotos"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {images.map((img, index) => {
-        const isActive = index === currentIndex;
-        const src = `${backendUrl}/uploads/header/${img}`;
+  const openGallery = (index) => {
+    setCurrentIndex(index);
+    setIsGalleryOpen(true);
+  };
 
-        return (
+  const closeGallery = () => setIsGalleryOpen(false);
+
+  const prevImage = () => setCurrentIndex((currentIndex + images.length - 1) % images.length);
+  const nextImage = () => setCurrentIndex((currentIndex + 1) % images.length);
+
+  return (
+    <>
+      <section
+        className="hero-slider"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {images.map((img, index) => (
           <img
             key={img}
-            src={src}
+            src={`${backendUrl}/uploads/header/${img}`}
             alt={`Foto ${index + 1}`}
-            className={`hero-image ${isActive ? 'active' : ''}`}
-            loading="lazy"
-            decoding="async"
-            aria-hidden={!isActive}
-            role="img"
+            className={`hero-image ${index === currentIndex ? "active" : ""}`}
+            onClick={() => openGallery(index)}
           />
-        );
-      })}
-    </section>
+        ))}
+      </section>
+
+      {isGalleryOpen && (
+        <div className="gallery-overlay" onClick={closeGallery}>
+          <button className="gallery-close" onClick={closeGallery}>✕</button>
+          <button className="gallery-prev" onClick={(e)=>{e.stopPropagation(); prevImage();}}>‹</button>
+          <img
+            src={`${backendUrl}/uploads/header/${images[currentIndex]}`}
+            alt={`Foto ${currentIndex + 1}`}
+            className="gallery-image"
+            onClick={(e)=>e.stopPropagation()}
+          />
+          <button className="gallery-next" onClick={(e)=>{e.stopPropagation(); nextImage();}}>›</button>
+        </div>
+      )}
+    </>
   );
 }

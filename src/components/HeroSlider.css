@@ -1,25 +1,22 @@
 .hero-slider {
   position: relative;
   width: 100%;
-  height: clamp(30vh, 50vw, 80vh); /* altura responsiva según pantalla */
+  height: clamp(30vh, 50vw, 80vh);
   overflow: hidden;
-  background-color: black; /* evita parpadeos mientras cargan las imágenes */
 }
 
 .hero-image {
   position: absolute;
-  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
-  object-fit: cover; /* llena el contenedor en desktop */
-  object-position: center; /* centra el sujeto de la foto */
+  object-fit: cover;
+  object-position: center;
   opacity: 0;
   transform: scale(1.03);
   transition: opacity 900ms ease-in-out, transform 900ms ease-in-out;
-  will-change: opacity, transform;
   z-index: 0;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .hero-image.active {
@@ -28,37 +25,43 @@
   z-index: 1;
 }
 
+/* Overlay de galería */
+.gallery-overlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
-.hero-overlay {
+.gallery-image {
+  max-width: 90%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.gallery-close,
+.gallery-prev,
+.gallery-next {
   position: absolute;
-  bottom: 20px;
-  left: 30px;
-  color: white;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
-  z-index: 2;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 3rem;
+  cursor: pointer;
 }
 
-/* Ajustes para tablets y móviles */
-@media (max-width: 1024px) {
-  .hero-slider {
-    height: clamp(28vh, 45vw, 70vh);
-  }
-}
+.gallery-close { top: 20px; right: 30px; }
+.gallery-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.gallery-next { right: 20px; top: 50%; transform: translateY(-50%); }
 
 @media (max-width: 768px) {
-  .hero-slider {
-    height: clamp(25vh, 50vw, 60vh);
-  }
-  .hero-image {
-    object-fit: contain; /* evita recortes en pantallas pequeñas */
-  }
-}
-
-@media (max-width: 420px) {
-  .hero-slider {
-    height: clamp(20vh, 55vw, 50vh);
-  }
-  .hero-image {
-    object-position: center 40%; /* ajusta el foco de la imagen */
-  }
+  .hero-slider { height: clamp(35vh, 60vw, 60vh); }
+  .hero-image { object-position: center 40%; }
+  .gallery-image { max-width: 95%; max-height: 70%; }
 }
