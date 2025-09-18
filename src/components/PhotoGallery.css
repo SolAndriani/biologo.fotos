@@ -1,0 +1,6 @@
+/* PhotoGallery.css */
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

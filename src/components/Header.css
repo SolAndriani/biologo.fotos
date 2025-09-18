@@ -1,4 +1,4 @@
-/* === RESET BÁSICO === */
+
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -8,7 +8,7 @@ body {
   color: #111;
 }
 
-/* === HEADER PRINCIPAL === */
+
 .header {
   position: sticky;
   top: 0;
@@ -27,7 +27,7 @@ body {
   align-items: center;
   gap: clamp(0.5rem, 2vw, 1.5rem);
   cursor: pointer;
-  flex-wrap: nowrap; /* evitar que logo y nombre se separen */
+  flex-wrap: nowrap; 
 }
 
 .logo {
@@ -79,7 +79,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* === BOTÓN DE MENÚ === */
 .menu-button {
   background: none;
   border: none;
@@ -98,7 +97,7 @@ body {
   box-shadow: none;
 }
 
-/* === SIDE MENU === */
+
 .side-menu {
   position: fixed;
   top: 0;
@@ -117,7 +116,7 @@ body {
 }
 
 .side-menu.open {
-  right: 0; /* solo se abre al hacer clic */
+  right: 0;
 }
 
 .side-menu nav ul {
@@ -147,7 +146,7 @@ body {
   box-shadow: none;
 }
 
-/* === BOTÓN CIERRE === */
+
 .close-button {
   background: none;
   border: none;
@@ -169,7 +168,7 @@ body {
   box-shadow: none;
 }
 
-/* === BACKDROP === */
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -180,7 +179,7 @@ body {
   z-index: 1500;
 }
 
-/* === RESPONSIVE === */
+
 @media (max-width: 1024px) {
   .logo { width: 100px; }
   .header-title { font-size: 2.3rem; }

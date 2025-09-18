@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 
-
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+const staticImages = [
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028551/paisaje_ewt9hm.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028408/paisaje12_rmctpr.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028405/paisaje10_mz0t35.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028402/paisaje9_lt3aih.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028400/paisaje8_tgqdvx.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028398/paisaje7_c7hbne.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028396/paisaje6_wixzom.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028394/paisaje5_oyvrax.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028394/paisaje4_migxkv.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028391/paisaje3_fxxpxw.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028391/paisaje2_darvil.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028389/paisaje1_xud8rb.jpg",
+];
 
 export default function PaisajesGallery() {
-  
-  const staticImages = Array.from(
-    { length: 20 },
-    (_, i) => `${backendUrl}/uploads/paisajes/paisaje${i + 1}.jpg`
-  );
-
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const openLightbox = (i) => setLightboxIndex(i);

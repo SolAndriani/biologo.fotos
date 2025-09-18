@@ -2,41 +2,34 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./UploadForm.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-export default function UploadForm({ onUploadSuccess }) {
+export default function UploadForm({ categorySelected, onUploadSuccess }) {
   const [file, setFile] = useState(null);
-  const [category, setCategory] = useState("animales"); // galería por defecto
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setError("");
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const handleFileChange = (e) => setFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) return setError("Selecciona una foto");
+    if (!file) return setError("Selecciona un archivo.");
 
     const formData = new FormData();
     formData.append("photo", file);
-    formData.append("category", category);
+    formData.append("category", categorySelected);
 
     try {
       setLoading(true);
+      setError("");
       await axios.post(`${backendUrl}/api/photos/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setFile(null);
-      onUploadSuccess(category);
+      onUploadSuccess(); // recarga las fotos
     } catch (err) {
       console.error(err);
-      setError("Error subiendo la foto");
+      setError("Error subiendo la foto.");
     } finally {
       setLoading(false);
     }
@@ -44,26 +37,11 @@ export default function UploadForm({ onUploadSuccess }) {
 
   return (
     <form className="upload-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label htmlFor="category">Seleccionar galería:</label>
-        <select id="category" value={category} onChange={handleCategoryChange}>
-          <option value="animales">Animales</option>
-          <option value="paisajes">Paisajes</option>
-          <option value="blackandwhite">Blanco y Negro</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="photo">Seleccionar foto:</label>
-        <input type="file" id="photo" accept="image/*" onChange={handleFileChange} />
-      </div>
-
-      {error && <p className="error">{error}</p>}
-
+      <input type="file" accept="image/*" onChange={handleFileChange} />
       <button type="submit" disabled={loading}>
         {loading ? "Subiendo..." : "Subir foto"}
       </button>
+      {error && <p className="error">{error}</p>}
     </form>
   );
 }
-
