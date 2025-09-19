@@ -1,6 +1,50 @@
 /* PhotoGallery.css */
-.photo-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+
+/* Quita el outline azul al hacer focus */
+.gallery-overlay button {
+  outline: none;
+  border: none; 
+  background: none; 
+  color: white; 
+  cursor: pointer;
+  position: absolute; 
+  /* quitamos la transición */
+}
+
+/* Botón cerrar (X) */
+.gallery-close {
+  top: 1px;
+  right: 20px;
+  font-size: 2rem; 
+}
+
+/* Botones prev y next (< y >) */
+.gallery-prev {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  font-size: 4rem; 
+}
+
+.gallery-next {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: 4rem; 
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 400px) {
+  .gallery-close {
+    top: 3px;
+    right: 3px;
+    font-size: 1.5rem;
+  }
+
+  .gallery-prev,
+  .gallery-next {
+    font-size: 3rem;
+    left: 5px;
+    right: 5px;
+  }
 }

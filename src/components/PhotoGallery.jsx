@@ -1,7 +1,6 @@
+// PhotoGallery.jsx
 import React, { useState } from "react";
 import Masonry from "react-masonry-css";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 import "./PhotoGallery.css";
 
 export default function PhotoGallery({ photos }) {
@@ -11,9 +10,12 @@ export default function PhotoGallery({ photos }) {
   if (!photos || photos.length === 0)
     return <p className="no-photos">No hay fotos en esta categoría.</p>;
 
-  const slides = photos.map((url) => ({ src: url }));
-
   const breakpointColumnsObj = { default: 4, 1100: 3, 700: 2, 500: 1 };
+
+  const prevImage = () =>
+    setPhotoIndex((photoIndex + photos.length - 1) % photos.length);
+  const nextImage = () =>
+    setPhotoIndex((photoIndex + 1) % photos.length);
 
   return (
     <div className="photo-gallery">
@@ -31,19 +33,38 @@ export default function PhotoGallery({ photos }) {
               setPhotoIndex(index);
               setIsOpen(true);
             }}
-            style={{ cursor: "pointer", width: "100%", marginBottom: 10 }}
+            className="gallery-thumb"
           />
         ))}
       </Masonry>
 
       {isOpen && (
-        <Lightbox
-          open={isOpen}
-          close={() => setIsOpen(false)}
-          slides={slides}
-          index={photoIndex}
-          onIndexChange={setPhotoIndex}
-        />
+        <div className="gallery-overlay" onClick={() => setIsOpen(false)}>
+          <button
+            className="gallery-close"
+            onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
+          >
+            ✕
+          </button>
+          <button
+            className="gallery-prev"
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+          >
+            ‹
+          </button>
+          <img
+            src={photos[photoIndex]}
+            alt={`photo-${photoIndex}`}
+            className="gallery-image"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="gallery-next"
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+          >
+            ›
+          </button>
+        </div>
       )}
     </div>
   );

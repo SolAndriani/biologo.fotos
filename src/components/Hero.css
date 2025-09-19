@@ -1,9 +1,8 @@
 .hero-slider {
   position: relative;
-  height: 100vh;
+  height: 400px; /* o 100vh si querés ocupar toda la pantalla */
   overflow: hidden;
   width: 100%;
-  max-height: 100vh; 
 }
 
 .hero-image {
@@ -24,59 +23,14 @@
   z-index: 2;
 }
 
-.hero-overlay {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  z-index: 3;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-  max-width: 90vw; 
-}
-
-.hero-overlay h1 {
-  font-size: 3rem;
-  margin: 0;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.hero-overlay p {
-  font-size: 1.2rem;
-  margin-top: 0.3rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-
 @media (max-width: 768px) {
-  .hero-overlay h1 {
-    font-size: 2rem;
-  }
-
-  .hero-overlay p {
-    font-size: 1rem;
-  }
-
-  .hero-overlay {
-    bottom: 30px;
-    left: 20px;
+  .hero-slider {
+    height: 250px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-overlay {
-    bottom: 20px;
-    left: 15px;
-  }
-
-  .hero-overlay h1 {
-    font-size: 1.5rem;
-  }
-
-  .hero-overlay p {
-    font-size: 0.9rem;
+  .hero-slider {
+    height: 180px;
   }
 }

@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./HeroSlider.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
-const images = ["Aguila.jpg","paisaje.jpg","pavo.jpg","pinguino.jpg","Tero.jpg","Vaca.jpg","vuelo.jpg"];
+const images = [
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028551/vuelo_gmgrl0.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028549/Vaca_vdfrna.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028547/Tero_p4xjxm.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028545/pinguino_fns6z8.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028543/pavo_a8trkr.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028541/paisaje_ewt9hm.jpg",
+  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028539/Aguila_uief89.jpg"
+];
 
 export default function HeroSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,10 +52,10 @@ export default function HeroSlider() {
         {images.map((img, index) => (
           <img
             key={img}
-            src={`${backendUrl}/uploads/header/${img}`}
+            src={img}
             alt={`Foto ${index + 1}`}
             className={`hero-image ${index === currentIndex ? "active" : ""}`}
-            onClick={() => openGallery(index)}
+            // onClick={() => openGallery(index)}  <-- eliminado
           />
         ))}
       </section>
@@ -58,7 +65,7 @@ export default function HeroSlider() {
           <button className="gallery-close" onClick={closeGallery}>✕</button>
           <button className="gallery-prev" onClick={(e)=>{e.stopPropagation(); prevImage();}}>‹</button>
           <img
-            src={`${backendUrl}/uploads/header/${images[currentIndex]}`}
+            src={images[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             className="gallery-image"
             onClick={(e)=>e.stopPropagation()}

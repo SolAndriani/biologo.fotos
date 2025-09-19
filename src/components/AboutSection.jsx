@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './AboutSection.css';
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
-
 export default function AboutSection() {
   const sectionRef = useRef(null);
 
@@ -28,7 +26,7 @@ export default function AboutSection() {
     <section className="about-section" id="sobre-mi" ref={sectionRef}>
       <div className="about-container">
         <img
-          src={`${backendUrl}/uploads/perfil/Agus.jpg`}
+          src="https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028577/Agus_u9ctxp.jpg"
           alt="Agustín Kalinowski"
           className="about-image"
         />

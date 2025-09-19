@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Header.css';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [perfilUrl, setPerfilUrl] = useState(""); // Estado para la foto de perfil
   const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
+  // Traer foto de perfil desde MongoDB
+  useEffect(() => {
+    axios.get("/api/photos?category=perfil")
+      .then(res => {
+        if (res.data.length > 0) setPerfilUrl(res.data[0].url);
+      })
+      .catch(err => console.error(err));
+  }, []);
 
   const goToHomeTop = () => {
     closeMenu();
@@ -17,7 +27,6 @@ export default function Header() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
   };
-
 
   const scrollToContact = () => {
     closeMenu();
@@ -36,8 +45,17 @@ export default function Header() {
   return (
     <>
       <header className="header">
-        <div className="header-left" onClick={goToHomeTop} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-          <img src="/icons/ping.png" alt="Logo Pingüino" className="logo" />
+        <div
+          className="header-left"
+          onClick={goToHomeTop}
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+        >
+          {/* Foto de perfil dinámica o fallback al logo */}
+          <img
+            src={perfilUrl || "/icons/ping.png"}
+            alt="Logo / Perfil"
+            className="logo"
+          />
           <div className="title-container">
             <h1 className="header-title">
               <span className="first-name">Agustín</span>
