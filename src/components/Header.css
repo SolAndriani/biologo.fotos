@@ -1,4 +1,3 @@
-
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -7,7 +6,6 @@ body {
   background-color: #fff;
   color: #111;
 }
-
 
 .header {
   position: sticky;
@@ -20,6 +18,7 @@ body {
   border-bottom: 1px solid #e5e5e5;
   z-index: 1000;
   box-sizing: border-box;
+  flex-wrap: nowrap; /* Evita que los elementos se apilen */
 }
 
 .header-left {
@@ -27,11 +26,11 @@ body {
   align-items: center;
   gap: clamp(0.5rem, 2vw, 1.5rem);
   cursor: pointer;
-  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .logo {
-  width: clamp(50px, 15vw, 120px);
+  width: clamp(80px, 10vw, 120px); /* Escala proporcional al viewport */
   height: auto;
   object-fit: contain;
 }
@@ -40,21 +39,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 1; 
-  min-width: 0; 
+  flex: 1;
+  min-width: 0;
   margin-left: 0.5rem;
 }
 
 .header-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.8rem);
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
   font-weight: 700;
   margin: 0;
   display: flex;
   align-items: baseline;
   gap: 0.3rem;
   user-select: none;
-  min-width: 0;
 }
 
 .first-name {
@@ -77,9 +75,7 @@ body {
   margin-top: 0.3rem;
   color: #555;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
 }
-
 
 .menu-button {
   background: none;
@@ -89,23 +85,23 @@ body {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   padding: 0.5rem;
   transition: color 0.3s ease;
-  margin-left: auto; 
+  margin-left: auto;
+  outline: none;       /* Quita el borde azul */
 }
 
 .menu-button:hover,
 .menu-button:focus {
   color: #4c7500;
-  outline: none;
+  outline: none;       /* Quita el borde azul */
+  box-shadow: none;    
   background: none;
-  box-shadow: none;
 }
-
 
 .side-menu {
   position: fixed;
   top: 0;
   right: -500px;
-  width: 300px;
+  width: clamp(280px, 20vw, 300px);
   height: 100vh;
   background: #fff;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
@@ -134,7 +130,7 @@ body {
 .side-menu nav ul li a {
   text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 1vw, 1rem);
   color: #111;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -145,28 +141,25 @@ body {
 .side-menu nav ul li a:focus {
   color: #4c7500;
   outline: none;
-  background: none;
-  box-shadow: none;
 }
 
 .close-button {
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
   color: #111;
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
   cursor: pointer;
   transition: color 0.3s ease;
-  z-index: 10;
+  outline: none;       /* Quita el borde azul */
 }
 
 .close-button:hover,
 .close-button:focus {
   color: #4c7500;
   outline: none;
-  background: none;
   box-shadow: none;
 }
 
@@ -180,37 +173,21 @@ body {
   z-index: 1500;
 }
 
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-  }
+/* MEDIA QUERIES */
+@media (max-width: 480px) {
   .header-left {
-    flex-direction: row;
-    gap: 0.8rem;
-    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+  .logo {
+    width: clamp(70px, 15vw, 120px);
   }
   .header-title {
-    font-size: 2.2rem;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
     gap: 0.2rem;
   }
-  .first-name { font-size: 1.2em; }
-  .last-name { font-size: 1em; }
-  .subtitle { font-size: 0.75rem; }
-  .logo { width: 80px; }
-  .side-menu { padding: 5rem 1.5rem; }
-}
-
-
-@media (max-width: 480px) {
-  .header-title { font-size: 1.8rem; gap: 0.15rem; }
-  .first-name { font-size: 1.05em; }
-  .last-name { font-size: 0.95em; }
-  .subtitle { font-size: 0.65rem; letter-spacing: 0.2rem; }
-  .logo { width: 70px; }
-  .side-menu nav ul li a { font-size: 0.95rem; }
-  .side-menu { padding: 4.5rem 1.2rem; }
+  .first-name { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+  .last-name { font-size: clamp(1rem, 2.5vw, 1.4rem); }
+  .subtitle { font-size: clamp(0.6rem, 2vw, 0.9rem); letter-spacing: 0.2rem; }
+  .side-menu { width: clamp(260px, 18vw, 300px); padding: 4.5rem 1.2rem; }
+  .side-menu nav ul li a { font-size: clamp(0.9rem, 1vw, 1rem); }
 }
