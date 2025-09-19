@@ -42,15 +42,21 @@ export default function PhotoGallery({ photos }) {
         <div className="gallery-overlay" onClick={() => setIsOpen(false)}>
           <button
             className="gallery-close"
-            onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
           >
-            ✕
+            {"✕"}
           </button>
           <button
             className="gallery-prev"
-            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
           >
-            ‹
+            {"<"} {/* Reemplazo React-friendly */}
           </button>
           <img
             src={photos[photoIndex]}
@@ -60,9 +66,12 @@ export default function PhotoGallery({ photos }) {
           />
           <button
             className="gallery-next"
-            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
           >
-            ›
+            {">"} {/* Reemplazo React-friendly */}
           </button>
         </div>
       )}

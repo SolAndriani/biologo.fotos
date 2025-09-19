@@ -1,50 +1,137 @@
-/* PhotoGallery.css */
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-/* Quita el outline azul al hacer focus */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -0.5rem;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 0.5rem;
+  background-clip: padding-box;
+}
+.my-masonry-grid_column img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.my-masonry-grid_column img:hover {
+  filter: brightness(0.95);
+  transform: scale(1.01);
+}
+
+.gallery-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.gallery-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
 .gallery-overlay button {
   outline: none;
-  border: none; 
-  background: none; 
-  color: white; 
+  border: none;
+  background: none;
+  color: white;
   cursor: pointer;
-  position: absolute; 
-  /* quitamos la transición */
+  position: absolute;
+  z-index: 10;
+  transition: none;
 }
 
-/* Botón cerrar (X) */
+.gallery-close:hover {
+  transform: scale(1.2);
+}
+
 .gallery-close {
-  top: 1px;
+  top: 5px;
   right: 20px;
-  font-size: 2rem; 
+  font-size: 2.5rem;
 }
 
-/* Botones prev y next (< y >) */
 .gallery-prev {
   top: 50%;
-  left: 20px;
+  left: 25px;
+  font-size: 2.5rem;
   transform: translateY(-50%);
-  font-size: 4rem; 
 }
 
 .gallery-next {
   top: 50%;
-  right: 20px;
+  right: 25px;
+  font-size: 2.5rem;
   transform: translateY(-50%);
-  font-size: 4rem; 
 }
 
-/* Adaptación a pantallas pequeñas */
-@media (max-width: 400px) {
+
+@media (max-width: 768px) {
   .gallery-close {
     top: 3px;
-    right: 3px;
-    font-size: 1.5rem;
+    right: 15px;
+    font-size: 2rem;
   }
-
   .gallery-prev,
   .gallery-next {
-    font-size: 3rem;
+    font-size: 2rem;
+    left: 15px;
+    right: 15px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .gallery-close {
+    top: 3px;
+    right: 10px;
+    font-size: 1.8rem;
+  }
+  .gallery-prev,
+  .gallery-next {
+    font-size: 1.5rem;
+    left: 10px;
+    right: 10px;
+  }
+  .my-masonry-grid_column img {
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .gallery-close {
+    top: 2px;
+    right: 5px;
+    font-size: 1.4rem;
+  }
+  .gallery-prev,
+  .gallery-next {
+    font-size: 1.2rem;
     left: 5px;
     right: 5px;
+  }
+  .gallery-image {
+    max-width: 95vw;
+    max-height: 85vh;
+  }
+  .my-masonry-grid_column img {
+    margin-bottom: 0.2rem;
   }
 }
