@@ -1,4 +1,6 @@
-
+/* ----------------------------- */
+/* GALERÍA MASONRY               */
+/* ----------------------------- */
 .photo-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -32,7 +34,9 @@
   transform: scale(1.01);
 }
 
-
+/* ----------------------------- */
+/* GALERÍA OVERLAY               */
+/* ----------------------------- */
 .gallery-overlay {
   position: fixed;
   top: 0;
@@ -49,81 +53,80 @@
   overflow: hidden;
 }
 
+/* Imagen centrada con margen dinámico */
 .gallery-image {
-  width: 100%;
-  max-width: 100vw;
-  height: 100%;
-  max-height: 100vh;
+  max-width: calc(100vw - 80px); /* deja 40px de margen a cada lado */
+  max-height: 90vh;
   object-fit: contain;
   display: block;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
   z-index: 5;
 }
 
-
+/* ----------------------------- */
+/* BOTONES OVERLAY               */
+/* ----------------------------- */
 .gallery-overlay button {
   outline: none;
   border: none;
   background: none;
   color: white;
   cursor: pointer;
-  position: absolute;
-  z-index: 20;
   transition: transform 0.2s ease;
 }
 
-
+/* Botón de cerrar */
 .gallery-close {
-  top: 1px; 
+  top: 10px; 
   right: 20px;
   font-size: 2.5rem;
+  position: fixed;
+  z-index: 60;
 }
 
 .gallery-close:hover {
   transform: scale(1.2);
 }
 
-
+/* Botones de navegación fuera de la imagen */
 .gallery-prev,
 .gallery-next {
+  position: fixed;   /* fijo al viewport */
   top: 50%;
   transform: translateY(-50%);
   font-size: 3rem;
   padding: 0.2rem 0.4rem;
   border-radius: 50%;
   background: rgba(0,0,0,0.3);
+  color: white;
+  cursor: pointer;
+  z-index: 50;
 }
 
-.gallery-prev { left: 20px; }
-.gallery-next { right: 20px; }
+/* Márgenes dinámicos según viewport */
+.gallery-prev { left: max(20px, 5vw); }
+.gallery-next { right: max(20px, 5vw); }
 
-
+/* ----------------------------- */
+/* MEDIA QUERIES PARA MÓVILES   */
+/* ----------------------------- */
 @media (max-width: 768px) {
-  .gallery-prev,
-  .gallery-next {
-    font-size: 1.8rem;
-    padding: 0.1rem 0.3rem;
-    background: rgba(0,0,0,0.25);
+  .gallery-prev, .gallery-next {
+    font-size: 2rem;
+    padding: 0.15rem 0.3rem;
   }
 }
 
 @media (max-width: 500px) {
-  .gallery-prev,
-  .gallery-next {
+  .gallery-prev, .gallery-next {
     font-size: 1.5rem;
-    padding: 0.1rem 0.2rem;
-    background: rgba(0,0,0,0.2);
+    padding: 0.1rem 0.25rem;
   }
 }
 
 @media (max-width: 375px) {
-  .gallery-prev,
-  .gallery-next {
+  .gallery-prev, .gallery-next {
     font-size: 1.2rem;
-    padding: 0.05rem 0.15rem;
-    left: 5px;
-    right: 5px;
-    background: rgba(0,0,0,0.15);
+    padding: 0.08rem 0.2rem;
   }
 }
