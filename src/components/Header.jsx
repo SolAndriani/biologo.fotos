@@ -44,7 +44,6 @@ export default function Header() {
   return (
     <>
       <header className="header">
-        {/* Logo + Título */}
         <div className="header-left" onClick={goToHomeTop}>
           <img src={perfilUrl || "/icons/ping.png"} alt="Logo / Perfil" className="logo" />
           <div className="title-container">
@@ -56,17 +55,17 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Botones de idioma */}
-        <div className="lang-buttons">
-          <button className="lang-btn" onClick={() => changeLanguage('es')}>ES</button>
-          <button className="lang-btn" onClick={() => changeLanguage('en')}>EN</button>
+        {/* Botones de idioma en la esquina superior derecha */}
+        <div className="language-buttons">
+          <button onClick={() => changeLanguage('es')}>ES</button>
+          <button onClick={() => changeLanguage('en')}>EN</button>
         </div>
 
-        {/* Botón de menú */}
+        {/* Botón del menú hamburguesa */}
         <button className="menu-button" onClick={toggleMenu} aria-label="Abrir menú">&#9776;</button>
       </header>
 
-      {/* Side Menu */}
+      {/* Menú lateral */}
       <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
         <button className="close-button" onClick={closeMenu} aria-label="Cerrar menú">✕</button>
         <nav>
@@ -89,6 +88,7 @@ export default function Header() {
         </nav>
       </div>
 
+      {/* Fondo oscuro cuando el menú está abierto */}
       {menuOpen && <div className="backdrop" onClick={closeMenu}></div>}
     </>
   );
