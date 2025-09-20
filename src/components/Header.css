@@ -13,7 +13,7 @@ body {
   position: sticky;
   top: 0;
   left: 0;
-  width: 100vw; /* Ocupa todo el ancho */
+  width: 100vw;
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -22,7 +22,6 @@ body {
   border-bottom: 1px solid #e5e5e5;
   z-index: 1000;
   box-sizing: border-box;
-  flex-wrap: nowrap;
 }
 
 .header-left {
@@ -43,8 +42,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex: 1;
-  min-width: 0;
   margin-left: 0.5rem;
 }
 
@@ -61,15 +58,15 @@ body {
 
 .first-name {
   color: #111;
-  font-weight: 1000;
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 0.5px; /* más uniforme */
 }
 
 .last-name {
   color: #555;
   font-weight: 500;
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
-  letter-spacing: -0.3px;
+  font-size: 1em; /* misma altura que el primero */
+  letter-spacing: 0.5px; /* misma separación */
 }
 
 .subtitle {
@@ -81,7 +78,7 @@ body {
   text-transform: uppercase;
 }
 
-/* --- MENU BUTTON --- */
+/* --- MENU BUTTON (hamburguesa) --- */
 .menu-button {
   background: none;
   border: none;
@@ -90,24 +87,18 @@ body {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   padding: 0.5rem;
   margin-left: auto;
-  outline: none;
 }
 
-.menu-button:hover,
-.menu-button:focus,
-.menu-button:active {
+.menu-button:hover {
   color: #4c7500;
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
 }
 
 /* --- SIDE MENU --- */
 .side-menu {
   position: fixed;
   top: 0;
-  right: -500px;
-  width: clamp(280px, 20vw, 300px);
+  right: -320px;
+  width: clamp(260px, 22vw, 300px);
   height: 100vh;
   background: #fff;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
@@ -116,8 +107,6 @@ body {
   flex-direction: column;
   transition: right 0.3s ease;
   z-index: 2000;
-  overflow-y: auto;
-  box-sizing: border-box;
 }
 
 .side-menu.open {
@@ -136,39 +125,31 @@ body {
 .side-menu nav ul li a {
   text-decoration: none;
   font-weight: 600;
-  font-size: clamp(0.95rem, 1vw, 1rem);
+  font-size: 1rem;
   color: #111;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
 }
 
-.side-menu nav ul li a:hover,
-.side-menu nav ul li a:focus {
+.side-menu nav ul li a:hover {
   color: #4c7500;
-  outline: none !important;
 }
 
+/* --- CLOSE BUTTON --- */
 .close-button {
   background: none;
   border: none;
-  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  font-size: 1.8rem;
   color: #111;
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
-  outline: none;
 }
 
-.close-button:hover,
-.close-button:focus,
-.close-button:active {
+.close-button:hover {
   color: #4c7500;
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
 }
 
 /* --- BACKDROP --- */
@@ -200,18 +181,10 @@ body {
   cursor: pointer;
   color: #111;
   padding: 0.2rem 0.5rem;
-  transition: color 0.3s ease;
-  outline: none !important;
-  box-shadow: none !important;
 }
 
-.lang-btn:hover,
-.lang-btn:focus,
-.lang-btn:active {
+.lang-btn:hover {
   color: #4c7500;
-  outline: none !important;
-  box-shadow: none !important;
-  background: none !important;
 }
 
 /* --- MEDIA QUERIES --- */
@@ -229,6 +202,6 @@ body {
   .first-name { font-size: clamp(1.1rem, 3vw, 1.5rem); }
   .last-name { font-size: clamp(1rem, 2.5vw, 1.4rem); }
   .subtitle { font-size: clamp(0.6rem, 2vw, 0.9rem); letter-spacing: 0.2rem; }
-  .side-menu { width: clamp(260px, 18vw, 300px); padding: 4.5rem 1.2rem; }
-  .side-menu nav ul li a { font-size: clamp(0.9rem, 1vw, 1rem); }
+  .side-menu { width: 260px; padding: 4.5rem 1.2rem; }
+  .side-menu nav ul li a { font-size: 0.95rem; }
 }

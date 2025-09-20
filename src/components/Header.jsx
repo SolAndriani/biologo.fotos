@@ -13,7 +13,6 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-  // Traer foto de perfil desde MongoDB
   useEffect(() => {
     axios.get("/api/photos?category=perfil")
       .then(res => {
@@ -72,14 +71,18 @@ export default function Header() {
         <button className="close-button" onClick={closeMenu} aria-label="Cerrar menú">✕</button>
         <nav>
           <ul>
-            <li><a href="#sobre-mi" onClick={closeMenu}>{t("intro")}</a></li>
-            <li><a href="#coleccion" onClick={closeMenu}>{t("collection")}</a></li>
-            <li><a href="#animales" onClick={closeMenu}>{t("animals")}</a></li>
-            <li><a href="#paisajes" onClick={closeMenu}>{t("landscapes")}</a></li>
-            <li><a href="#blanco-negro" onClick={closeMenu}>{t("black_white")}</a></li>
+            <li>
+              <a href="/" onClick={goToHomeTop}>{t("home")}</a>
+            </li>
+            <li>
+              <a href="#sobre-mi" onClick={closeMenu}>{t("menu.about")}</a>
+            </li>
+            <li>
+              <a href="#coleccion" onClick={closeMenu}>{t("menu.projects")}</a>
+            </li>
             <li>
               <a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToContact(); }}>
-                {t("contact")}
+                {t("menu.contact")}
               </a>
             </li>
           </ul>
