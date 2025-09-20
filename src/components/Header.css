@@ -1,3 +1,4 @@
+/* --- GLOBAL --- */
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -7,9 +8,12 @@ body {
   color: #111;
 }
 
+/* --- HEADER --- */
 .header {
   position: sticky;
   top: 0;
+  left: 0;
+  width: 100vw; /* Ocupa todo el ancho */
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -18,7 +22,7 @@ body {
   border-bottom: 1px solid #e5e5e5;
   z-index: 1000;
   box-sizing: border-box;
-  flex-wrap: nowrap; /* Evita que los elementos se apilen */
+  flex-wrap: nowrap;
 }
 
 .header-left {
@@ -30,7 +34,7 @@ body {
 }
 
 .logo {
-  width: clamp(80px, 10vw, 120px); /* Escala proporcional al viewport */
+  width: clamp(80px, 10vw, 120px);
   height: auto;
   object-fit: contain;
 }
@@ -77,6 +81,7 @@ body {
   text-transform: uppercase;
 }
 
+/* --- MENU BUTTON --- */
 .menu-button {
   background: none;
   border: none;
@@ -84,19 +89,20 @@ body {
   color: #111;
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   padding: 0.5rem;
-  transition: color 0.3s ease;
   margin-left: auto;
-  outline: none;       /* Quita el borde azul */
+  outline: none;
 }
 
 .menu-button:hover,
-.menu-button:focus {
+.menu-button:focus,
+.menu-button:active {
   color: #4c7500;
-  outline: none;       /* Quita el borde azul */
-  box-shadow: none;    
-  background: none;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
+/* --- SIDE MENU --- */
 .side-menu {
   position: fixed;
   top: 0;
@@ -140,7 +146,7 @@ body {
 .side-menu nav ul li a:hover,
 .side-menu nav ul li a:focus {
   color: #4c7500;
-  outline: none;
+  outline: none !important;
 }
 
 .close-button {
@@ -153,16 +159,19 @@ body {
   right: 1.5rem;
   cursor: pointer;
   transition: color 0.3s ease;
-  outline: none;       /* Quita el borde azul */
+  outline: none;
 }
 
 .close-button:hover,
-.close-button:focus {
+.close-button:focus,
+.close-button:active {
   color: #4c7500;
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
+/* --- BACKDROP --- */
 .backdrop {
   position: fixed;
   top: 0;
@@ -173,7 +182,39 @@ body {
   z-index: 1500;
 }
 
-/* MEDIA QUERIES */
+/* --- LANGUAGE BUTTONS --- */
+.lang-buttons {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3000;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #111;
+  padding: 0.2rem 0.5rem;
+  transition: color 0.3s ease;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lang-btn:hover,
+.lang-btn:focus,
+.lang-btn:active {
+  color: #4c7500;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+/* --- MEDIA QUERIES --- */
 @media (max-width: 480px) {
   .header-left {
     gap: 0.5rem;

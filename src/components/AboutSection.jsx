@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './AboutSection.css';
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
+  const { t } = useTranslation(); // <-- agregamos la función de traducción
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,15 +33,9 @@ export default function AboutSection() {
           className="about-image"
         />
         <div className="about-text">
-          <h2>Hola, soy Agus</h2>
-          <p>
-            Soy argentino y hace algunos años me mudé a Estados Unidos, donde estudié Biología y comencé a formarme profesionalmente.
-            Hoy, con 24 años, sigo manteniendo viva mi pasión por la naturaleza y los animales.
-          </p>
-          <p>
-            La fotografía se convirtió en mi forma de conectar con ese mundo que tanto amo, de observar con atención y contar historias a través de imágenes. 
-            Esta página es mi espacio para compartir esa admiración.
-          </p>
+          <h2>{t('hello_name', { name: 'Agus' })}</h2>
+          <p>{t('bio_paragraph_1')}</p>
+          <p>{t('bio_paragraph_2')}</p>
         </div>
       </div>
     </section>

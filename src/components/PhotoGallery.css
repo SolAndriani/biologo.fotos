@@ -1,6 +1,4 @@
-/* ----------------------------- */
-/* GALERÍA MASONRY               */
-/* ----------------------------- */
+
 .photo-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -34,9 +32,7 @@
   transform: scale(1.01);
 }
 
-/* ----------------------------- */
-/* GALERÍA OVERLAY               */
-/* ----------------------------- */
+
 .gallery-overlay {
   position: fixed;
   top: 0;
@@ -53,9 +49,8 @@
   overflow: hidden;
 }
 
-/* Imagen centrada con margen dinámico */
 .gallery-image {
-  max-width: calc(100vw - 80px); /* deja 40px de margen a cada lado */
+  max-width: calc(100vw - 80px); 
   max-height: 90vh;
   object-fit: contain;
   display: block;
@@ -63,9 +58,7 @@
   z-index: 5;
 }
 
-/* ----------------------------- */
-/* BOTONES OVERLAY               */
-/* ----------------------------- */
+
 .gallery-overlay button {
   outline: none;
   border: none;
@@ -75,7 +68,7 @@
   transition: transform 0.2s ease;
 }
 
-/* Botón de cerrar */
+
 .gallery-close {
   top: 10px; 
   right: 20px;
@@ -88,10 +81,9 @@
   transform: scale(1.2);
 }
 
-/* Botones de navegación fuera de la imagen */
 .gallery-prev,
 .gallery-next {
-  position: fixed;   /* fijo al viewport */
+  position: fixed;   
   top: 50%;
   transform: translateY(-50%);
   font-size: 3rem;
@@ -103,13 +95,10 @@
   z-index: 50;
 }
 
-/* Márgenes dinámicos según viewport */
 .gallery-prev { left: max(20px, 5vw); }
 .gallery-next { right: max(20px, 5vw); }
 
-/* ----------------------------- */
-/* MEDIA QUERIES PARA MÓVILES   */
-/* ----------------------------- */
+
 @media (max-width: 768px) {
   .gallery-prev, .gallery-next {
     font-size: 2rem;

@@ -1,74 +1,66 @@
-import React, { useEffect, useRef } from 'react'; 
-import { useNavigate } from 'react-router-dom'; 
-import './GallerySection.css'; 
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import './GallerySection.css';
 
-const categories = [ 
-  { 
-    name: 'Animales', 
-    image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal24_bgj5zh.jpg', 
-    route: '/Animales', 
-  }, 
-  { 
-    name: 'Paisajes', 
-    image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg', 
-    route: '/paisajes', 
-  }, 
-  { 
-    name: 'Blanco y Negro', 
-    image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028497/foto8_wu5dzp.jpg', 
-    route: '/black-and-white', 
-  }, 
-]; 
+export default function GallerySection() {
+  const navigate = useNavigate();
+  const sectionRef = useRef(null);
+  const { t } = useTranslation();
 
-export default function GallerySection() { 
-  const navigate = useNavigate(); 
-  const sectionRef = useRef(null); 
+  // Definimos las categorías usando claves, no traducciones directas
+  const categories = [
+    { key: 'animals', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal24_bgj5zh.jpg', route: '/Animales' },
+    { key: 'landscapes', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg', route: '/paisajes' },
+    { key: 'black_and_white', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028497/foto8_wu5dzp.jpg', route: '/black-and-white' }
+  ];
 
-  useEffect(() => { 
+  useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => { 
-        entries.forEach(entry => { 
-          if (entry.isIntersecting) { 
-            entry.target.classList.add('visible'); 
-          } else { 
-            entry.target.classList.remove('visible'); 
-          } 
-        }); 
-      }, 
-      { threshold: 0.1 } 
-    ); 
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    const elements = sectionRef.current.querySelectorAll('.fade-slide'); 
-    elements.forEach(el => observer.observe(el)); 
+    const elements = sectionRef.current.querySelectorAll('.fade-slide');
+    elements.forEach(el => observer.observe(el));
 
-    return () => { 
-      elements.forEach(el => observer.unobserve(el)); 
-    }; 
-  }, []); 
+    return () => {
+      elements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
 
-  return ( 
-    <section id="coleccion" className="gallery-section" ref={sectionRef}> 
-      <div className="gallery-header fade-slide" style={{ animationDelay: '0s' }}> 
-        <h1 className="background-text">COLECCIÓN</h1> 
-        <h2 className="gallery-subtitle">Naturaleza detenida en una imagen</h2> 
-      </div> 
+  return (
+    <section id="coleccion" className="gallery-section" ref={sectionRef}>
+      <div className="gallery-header fade-slide" style={{ animationDelay: '0s' }}>
+        <h1 className="background-text">{t('gallery.title')}</h1>
+        <h2 className="gallery-subtitle">{t('gallery.subtitle')}</h2>
+      </div>
 
-      <div className="gallery-container"> 
-        {categories.map(({ name, image, route }, index) => ( 
-          <div 
-            key={name} 
-            className="category-card fade-slide" 
-            style={{ 
-              backgroundImage: `url(${image})`, 
-              animationDelay: `${(index + 1) * 0.1}s`, 
-            }} 
-            title={name} 
-            onClick={() => navigate(route)} 
-          > 
-            <div className="category-label">{name}</div> 
-          </div> 
-        ))} 
-      </div> 
-    </section> 
-  ); 
+      <div className="gallery-container">
+        {categories.map(({ key, image, route }, index) => (
+          <div
+            key={key}
+            className="category-card fade-slide"
+            style={{
+              backgroundImage: `url(${image})`,
+              animationDelay: `${(index + 1) * 0.1}s`
+            }}
+            title={t(`categories.${key}`)}
+            onClick={() => navigate(route)}
+          >
+            <div className="category-label">{t(`categories.${key}`)}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
+

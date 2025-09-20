@@ -58,9 +58,7 @@ button:disabled {
   margin-top: -0.5rem;
 }
 
-/* ==============================
-   Responsive para pantallas pequeñas
-================================= */
+
 @media (max-width: 500px) {
   .upload-form {
     padding: 0.8rem;

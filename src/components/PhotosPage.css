@@ -97,6 +97,6 @@
 
 @media (max-width: 800px) {
   .my-masonry-grid_column {
-    width: 100%; /* 1 columna */
+    width: 100%; 
   }
 }

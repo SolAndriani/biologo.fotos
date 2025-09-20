@@ -14,7 +14,7 @@ export default function PhotosPage({ loggedIn }) {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fotos "base" de Cloudinary por categoría como fallback
+
   const staticPhotos = {
     animales: [
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal23_fuzmxq.jpg",

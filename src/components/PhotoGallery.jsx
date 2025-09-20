@@ -1,4 +1,4 @@
-// PhotoGallery.jsx
+
 import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 import "./PhotoGallery.css";
