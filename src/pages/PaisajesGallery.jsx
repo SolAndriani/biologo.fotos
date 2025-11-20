@@ -1,40 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const staticImages = [
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028551/paisaje_ewt9hm.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028408/paisaje12_rmctpr.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028405/paisaje10_mz0t35.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028402/paisaje9_lt3aih.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028400/paisaje8_tgqdvx.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028398/paisaje7_c7hbne.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028396/paisaje6_wixzom.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028394/paisaje5_oyvrax.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028394/paisaje4_migxkv.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028391/paisaje3_fxxpxw.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028391/paisaje2_darvil.jpg",
-  "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028389/paisaje1_xud8rb.jpg",
-];
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default function PaisajesGallery() {
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const loadPhotos = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${backendUrl}/api/photos/category/paisajes`);
+      setPhotos(data.photos); // <-- CORREGIDO
+    } catch (err) {
+      console.error("Error cargando fotos:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadPhotos();
+  }, []);
+
+  if (loading) return <p>Cargando fotos...</p>;
+  if (!photos.length) return <p>No hay fotos en esta categoría.</p>;
 
   const openLightbox = (i) => setLightboxIndex(i);
   const closeLightbox = () => setLightboxIndex(null);
-  const goNext = () => setLightboxIndex((lightboxIndex + 1) % staticImages.length);
-  const goPrev = () => setLightboxIndex((lightboxIndex - 1 + staticImages.length) % staticImages.length);
+  const goNext = () => setLightboxIndex((lightboxIndex + 1) % photos.length);
+  const goPrev = () => setLightboxIndex((lightboxIndex - 1 + photos.length) % photos.length);
 
   return (
     <section className="gallery-page">
       <div className="gallery-grid">
-        {staticImages.map((img, i) => (
+        {photos.map((url, i) => (
           <img
             key={i}
-            src={img}
+            src={url}
             alt={`Paisaje ${i + 1}`}
             loading="lazy"
             onClick={() => openLightbox(i)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           />
         ))}
       </div>
@@ -42,7 +50,7 @@ export default function PaisajesGallery() {
       {lightboxIndex !== null && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <button className="lightbox-btn prev-btn" onClick={e => { e.stopPropagation(); goPrev(); }}>‹</button>
-          <img className="lightbox-image" src={staticImages[lightboxIndex]} alt={`Paisaje ${lightboxIndex + 1}`} onClick={e => e.stopPropagation()} />
+          <img className="lightbox-image" src={photos[lightboxIndex]} alt={`Paisaje ${lightboxIndex + 1}`} onClick={e => e.stopPropagation()} />
           <button className="lightbox-btn next-btn" onClick={e => { e.stopPropagation(); goNext(); }}>›</button>
           <button className="lightbox-btn close-btn" onClick={closeLightbox}>×</button>
         </div>

@@ -17,6 +17,18 @@ export default function PhotosPage({ loggedIn }) {
 
   const staticPhotos = {
     animales: [
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642996/animal36_gopvgg.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642996/animal37_jnnbd9.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642995/animal34_lgiuug.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642995/animal35_xyymti.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642994/animal33_hlcaz1.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642982/animal31_hbsssb.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642979/animal30_ef7lrm.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642975/animal29_cbk88n.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642971/animal28_vizjse.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642968/animal27_k8usgr.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642966/animal26_bp6w2d.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642958/animal25_oyvcai.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal23_fuzmxq.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal24_bgj5zh.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal19_bonzoj.jpg",
@@ -70,6 +82,7 @@ export default function PhotosPage({ loggedIn }) {
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028483/foto1_sqegkd.jpg"
     ],
     paisajes: [
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763565113/paisaje14_yongmu.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028410/paisaje13_jcsjcv.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028408/paisaje12_rmctpr.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg",

@@ -14,11 +14,12 @@ export default function Header() {
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
-    axios.get("/api/photos?category=perfil")
+    // URL corregida al backend en 5000
+    axios.get("http://localhost:5000/api/photos/category/perfil")
       .then(res => {
         if (res.data.length > 0) setPerfilUrl(res.data[0].url);
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error("Error cargando foto de perfil:", err));
   }, []);
 
   const goToHomeTop = () => {
@@ -55,30 +56,21 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Botones de idioma en la esquina superior derecha */}
         <div className="language-buttons">
           <button onClick={() => changeLanguage('es')}>ES</button>
           <button onClick={() => changeLanguage('en')}>EN</button>
         </div>
 
-        {/* Botón del menú hamburguesa */}
         <button className="menu-button" onClick={toggleMenu} aria-label="Abrir menú">&#9776;</button>
       </header>
 
-      {/* Menú lateral */}
       <div className={`side-menu ${menuOpen ? 'open' : ''}`}>
         <button className="close-button" onClick={closeMenu} aria-label="Cerrar menú">✕</button>
         <nav>
           <ul>
-            <li>
-              <a href="/" onClick={goToHomeTop}>{t("home")}</a>
-            </li>
-            <li>
-              <a href="#sobre-mi" onClick={closeMenu}>{t("menu.about")}</a>
-            </li>
-            <li>
-              <a href="#coleccion" onClick={closeMenu}>{t("menu.projects")}</a>
-            </li>
+            <li><a href="/" onClick={goToHomeTop}>{t("home")}</a></li>
+            <li><a href="#sobre-mi" onClick={closeMenu}>{t("menu.about")}</a></li>
+            <li><a href="#coleccion" onClick={closeMenu}>{t("menu.projects")}</a></li>
             <li>
               <a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToContact(); }}>
                 {t("menu.contact")}
@@ -88,7 +80,6 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Fondo oscuro cuando el menú está abierto */}
       {menuOpen && <div className="backdrop" onClick={closeMenu}></div>}
     </>
   );

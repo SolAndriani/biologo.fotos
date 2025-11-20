@@ -1,69 +1,80 @@
-// AnimalesGallery.jsx
-import React, { useState } from 'react';
 
-export default function AnimalesGallery() {
-  const staticImages = [
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal23_fuzmxq.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal24_bgj5zh.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal19_bonzoj.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027814/animal22_pigev1.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027814/animal21_km464x.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027814/animal18_ehxmsn.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027813/animal20_aheiid.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027812/animal17_nffeix.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027812/animal16_pfiyww.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027810/animal13_t7pgfg.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027809/animal14_eknrwh.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027809/animal10_xbsp5x.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027809/animal15_ljuyap.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027808/animal12_fixlms.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027808/animal11_d3p4yg.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027808/animal9_q1ndep.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal8_opyvlv.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal5_pthjwj.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal3_q1pmqj.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal7_jnhtrk.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal6_nqavt9.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027807/animal4_ets0mo.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027806/animal1_ogysuy.jpg",
-    "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027806/animal2_tzvud1.jpg"
-  ];
+import React, { useState } from "react";
+import Masonry from "react-masonry-css";
+import "./PhotoGallery.css";
 
-  const [lightboxIndex, setLightboxIndex] = useState(null);
+export default function PhotoGallery({ photos }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
-  const openLightbox = (i) => setLightboxIndex(i);
-  const closeLightbox = () => setLightboxIndex(null);
-  const goNext = () => setLightboxIndex((lightboxIndex + 1) % staticImages.length);
-  const goPrev = () => setLightboxIndex((lightboxIndex - 1 + staticImages.length) % staticImages.length);
+  if (!photos || photos.length === 0)
+    return <p className="no-photos">No hay fotos en esta categoría.</p>;
+
+  const breakpointColumnsObj = { default: 4, 1100: 3, 700: 2, 500: 1 };
+
+  const prevImage = () =>
+    setPhotoIndex((photoIndex + photos.length - 1) % photos.length);
+  const nextImage = () =>
+    setPhotoIndex((photoIndex + 1) % photos.length);
 
   return (
-    <section className="gallery-page">
-      <div className="gallery-grid">
-        {staticImages.map((img, i) => (
+    <div className="photo-gallery">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {photos.map((url, index) => (
           <img
-            key={i}
-            src={img}
-            alt={`Animal ${i + 1}`}
-            loading="lazy"
-            onClick={() => openLightbox(i)}
-            style={{ cursor: 'pointer' }}
+            key={index}
+            src={url}
+            alt={`photo-${index}`}
+            onClick={() => {
+              setPhotoIndex(index);
+              setIsOpen(true);
+            }}
+            className="gallery-thumb"
           />
         ))}
-      </div>
+      </Masonry>
 
-      {lightboxIndex !== null && (
-        <div className="lightbox-overlay" onClick={closeLightbox}>
-          <button className="lightbox-btn prev-btn" onClick={e => { e.stopPropagation(); goPrev(); }}>‹</button>
+      {isOpen && (
+        <div className="gallery-overlay" onClick={() => setIsOpen(false)}>
+          <button
+            className="gallery-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+          >
+            {"✕"}
+          </button>
+          <button
+            className="gallery-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
+          >
+            {"<"} {/* Reemplazo React-friendly */}
+          </button>
           <img
-            className="lightbox-image"
-            src={staticImages[lightboxIndex]}
-            alt={`Animal ${lightboxIndex + 1}`}
-            onClick={e => e.stopPropagation()}
+            src={photos[photoIndex]}
+            alt={`photo-${photoIndex}`}
+            className="gallery-image"
+            onClick={(e) => e.stopPropagation()}
           />
-          <button className="lightbox-btn next-btn" onClick={e => { e.stopPropagation(); goNext(); }}>›</button>
-          <button className="lightbox-btn close-btn" onClick={closeLightbox}>×</button>
+          <button
+            className="gallery-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
+          >
+            {">"} {/* Reemplazo React-friendly */}
+          </button>
         </div>
       )}
-    </section>
+    </div>
   );
 }

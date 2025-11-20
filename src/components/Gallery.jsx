@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Gallery.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = "http://localhost:5000"; // tu backend local
 
 export default function Gallery({ category }) {
   const [photos, setPhotos] = useState([]);
@@ -12,7 +12,7 @@ export default function Gallery({ category }) {
     const fetchPhotos = async () => {
       try {
         const { data } = await axios.get(`${backendUrl}/api/photos/category/${category}`);
-        setPhotos(data); // ahora es directamente el array
+        setPhotos(data); // guardamos el array de fotos
       } catch (err) {
         console.error("Error cargando fotos:", err);
       } finally {
@@ -28,8 +28,11 @@ export default function Gallery({ category }) {
 
   return (
     <div className="gallery-grid">
-      {photos.map((photo) => (
-        <img key={photo._id} src={photo.fullUrl} alt={photo.title || photo.category} />
+      {photos.map(photo => (
+        <div key={photo._id} className="gallery-item">
+          <img src={photo.url} alt={photo.title || photo.category} />
+          {photo.title && <p className="photo-title">{photo.title}</p>}
+        </div>
       ))}
     </div>
   );
