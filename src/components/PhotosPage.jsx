@@ -17,6 +17,9 @@ export default function PhotosPage({ loggedIn }) {
 
   const staticPhotos = {
     animales: [
+
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763643017/animal38_v8ic05.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763643028/animal41_ooqfkp.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642996/animal36_gopvgg.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642996/animal37_jnnbd9.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642995/animal34_lgiuug.jpg",
