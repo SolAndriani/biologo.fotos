@@ -24,10 +24,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "mock-backend": "node mock-backend/server.js",
+    "start:with-mock": "concurrently \"npm run mock-backend\" \"cross-env REACT_APP_BACKEND_URL=http://localhost:5000 npm start\""
   },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3"
   },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],

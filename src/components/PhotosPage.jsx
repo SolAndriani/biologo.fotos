@@ -16,8 +16,38 @@ export default function PhotosPage({ loggedIn }) {
 
 
   const staticPhotos = {
-    animales: [
+    animales: [     
 
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636471/animal56_eysgpi.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636456/animal69_bkeqfz.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636401/animal63_smcvhb.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636384/animal62_pbmq49.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636381/animal59_qemhoa.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636379/animal61_bvztt9.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636376/animal62_pirlig.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636376/animal61_dnxegj.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636376/animal60_wiyqck.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636373/animal59_rtdgxl.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636370/animal58_nyoyat.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636367/animal57_ghkun3.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636363/animal56_tmya7f.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636359/animal55_liex21.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636350/animal54_az2ca8.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636345/animal52_thii6q.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636343/animal53_aynuft.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764635605/animal51_cgcdyg.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764453190/biologo-fotos/animales/4c15d5a98571168cf3cdd1c070a70d90.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451627/biologo-fotos/animales/b63b34e5fc1ad35c22353f81a1822cc4.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451578/biologo-fotos/animales/d819d9bcf72f7c37e8904d2e1eb440ae.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451561/biologo-fotos/animales/5903cd259022519d6f5670646cd4fb48.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451539/biologo-fotos/animales/bb882dcc3b18e86883626cb51610b926.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451518/biologo-fotos/animales/441bea7fb7ce223d285372717dc246eb.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451494/biologo-fotos/animales/04c1b9ce5ec4fa39bba0f2067d8764a4.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451476/biologo-fotos/animales/dd26c530c07fa7eb1b02e6c014d5384f.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451476/biologo-fotos/animales/dd26c530c07fa7eb1b02e6c014d5384f.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451461/biologo-fotos/animales/9ec613c7bba2fe9c153afa5350248b4b.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451396/biologo-fotos/animales/c9d591d77e8dd943280ac6a8b14b3e4a.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764451137/biologo-fotos/animales/8d6e2667b1ff70974e58aa59efc024d2.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763643017/animal38_v8ic05.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763643028/animal41_ooqfkp.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763642996/animal36_gopvgg.jpg",
@@ -85,6 +115,13 @@ export default function PhotosPage({ loggedIn }) {
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028483/foto1_sqegkd.jpg"
     ],
     paisajes: [
+
+
+
+
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764635881/paisaje16_mlo54e.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764635877/paisaje18_xibbcx.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764635795/paisaje17_bn71nt.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1763565113/paisaje14_yongmu.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028410/paisaje13_jcsjcv.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028408/paisaje12_rmctpr.jpg",

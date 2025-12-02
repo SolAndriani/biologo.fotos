@@ -1,53 +1,60 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import "./LoginForm.css";
 
-export default function UploadForm() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [category, setCategory] = useState("paisajes");
-  const [message, setMessage] = useState("");
+export default function LoginForm({ onLoginSuccess, onClose }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFile) {
-      setMessage("Selecciona un archivo primero.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("photo", selectedFile);
-    formData.append("category", category);
+    setError("");
 
     try {
-const res = await axios.post("http://localhost:4000/api/photos/upload", formData);
-      console.log("Foto subida:", res.data);
-      setMessage("Foto subida correctamente!");
-      setSelectedFile(null);
+      const res = await axios.post(`${backendUrl}/api/auth/login`, { username, password });
+
+      if (res.data?.user) {
+        setError("");
+        if (onLoginSuccess) onLoginSuccess(res.data.user);
+        alert(`¡Bienvenido ${res.data.user.username}!`);
+        if (onClose) onClose();
+      }
     } catch (err) {
-      console.error("Error subiendo foto:", err);
-      setMessage("Error al subir la foto.");
+      console.error("Error en login:", err);
+      if (err.response && err.response.status === 401) {
+        setError(err.response.data.msg || "Usuario o contraseña incorrectos");
+      } else {
+        setError("No se pudo conectar con el servidor");
+      }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      
-      <select value={category} onChange={handleCategoryChange}>
-        <option value="paisajes">Paisajes</option>
-        <option value="animales">Animales</option>
-        <option value="blackandwhite">Blanco y negro</option>
-      </select>
-
-      <button type="submit">Subir foto</button>
-      {message && <p>{message}</p>}
-    </form>
+    <div className="modal-overlay">
+      <form className="modal-form" onSubmit={handleSubmit}>
+        <span className="modal-close" onClick={onClose}>×</span>
+        <h3>Login</h3>
+        <input
+          type="text"
+          placeholder="Usuario"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          autoComplete="current-password"
+        />
+        <button type="submit">Ingresar</button>
+        {error && <p className="error">{error}</p>}
+      </form>
+    </div>
   );
 }

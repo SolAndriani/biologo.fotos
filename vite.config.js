@@ -1,7 +1,9 @@
 export default {
   server: {
     proxy: {
-      '/api': 'http://localhost:000', // <-- el puerto del backend
+      // Proxy frontend /api requests to the backend during development.
+      // Make sure your backend runs on the port configured in .env (REACT_APP_BACKEND_URL)
+      '/api': 'http://localhost:4000',
     },
   },
 };

@@ -27,6 +27,22 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+## Development with a mock backend (helpful if you don't have the real backend running)
+
+This repo includes a small mock backend in `mock-backend/` that provides the minimal endpoints used by the frontend during development:
+
+- POST /api/auth/login
+- GET /api/photos/category/:category
+
+To start the frontend with the mock backend at the same time, install dependencies then run:
+
+```bash
+npm install
+npm run start:with-mock
+```
+
+The mock server listens on port 5000 by default while the CRA dev server runs on 3000. The `start:with-mock` script uses `concurrently` to run both.
+
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
