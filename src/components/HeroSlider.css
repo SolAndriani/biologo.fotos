@@ -1,11 +1,9 @@
-
 .hero-slider {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
-
 
 .hero-slider::after {
   content: "";
@@ -20,13 +18,13 @@
   z-index: 2;
 }
 
-
 .hero-image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top; 
   opacity: 0;
   transform: scale(1); 
   transition: opacity 0.8s ease-in-out, transform 1s ease-in-out; 
@@ -36,7 +34,6 @@
   opacity: 1;
   transform: scale(1);
 }
-
 
 .hero-name {
   position: absolute;
@@ -102,15 +99,18 @@
   color: #000000;
 }
 
-
 @media (max-width: 768px) {
+  .hero-slider {
+    height: 75vh; 
+  }
+
   .hero-name {
-    bottom: 10%;
+    bottom: 8%;
     left: 5%;
   }
 
   .hero-name h1 {
-    font-size: clamp(2rem, 10vw, 4rem);
+    font-size: clamp(2rem, 8vw, 4rem);
   }
 
   .hero-name p {
@@ -130,8 +130,18 @@
 }
 
 @media (max-width: 480px) {
+  .hero-slider {
+    height: 60vh; 
+  }
+
+  .hero-name {
+    bottom: 5%;
+    left: 5%;
+  }
+
   .hero-name h1 {
-    font-size: clamp(1.8rem, 12vw, 3rem);
+    font-size: clamp(1.5rem, 10vw, 3rem);
+    line-height: 1;
   }
 
   .hero-name p {
@@ -140,7 +150,7 @@
   }
 
   .hero-buttons button {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
   }
 }
