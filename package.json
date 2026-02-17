@@ -4,10 +4,15 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "aos": "^2.3.4",
     "axios": "^1.10.0",
     "firebase": "^11.10.0",
+    "framer-motion": "^12.29.2",
+    "gsap": "^3.14.2",
     "i18next": "^25.5.2",
+    "lottie-react": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^15.7.3",
@@ -15,8 +20,11 @@
     "react-masonry-css": "^1.0.16",
     "react-router-dom": "^7.8.2",
     "react-scripts": "5.0.1",
+    "react-scroll-parallax": "^3.5.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
+    "swiper": "^12.0.3",
+    "three": "^0.152.2",
     "web-vitals": "^2.1.4",
     "yet-another-react-lightbox": "^3.25.0"
   },
@@ -29,15 +37,27 @@
     "start:with-mock": "concurrently \"npm run mock-backend\" \"cross-env REACT_APP_BACKEND_URL=http://localhost:5000 npm start\""
   },
   "eslintConfig": {
-    "extends": ["react-app", "react-app/jest"]
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0",
     "concurrently": "^8.2.0",
     "cross-env": "^7.0.3"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
-
