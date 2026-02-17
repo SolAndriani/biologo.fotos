@@ -21,16 +21,14 @@ export default function HeroSlider() {
   const [paused, setPaused] = useState(false);
   const sliderRef = useRef(null);
 
- 
   useEffect(() => {
     const interval = setInterval(() => {
       if (!paused) {
         setCurrentIndex((i) => (i + 1) % slides.length);
       }
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [paused]);
-
 
   const handleScroll = (id) => {
     const el = document.getElementById(id);

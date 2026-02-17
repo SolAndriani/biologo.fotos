@@ -24,10 +24,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top; 
+  object-position: center center; /* <--- CENTRADO */
   opacity: 0;
-  transform: scale(1); 
-  transition: opacity 0.8s ease-in-out, transform 1s ease-in-out; 
+  transform: scale(1);
+  transition: opacity 0.8s ease-in-out, transform 1s ease-in-out;
 }
 
 .hero-image.active {
@@ -99,9 +99,17 @@
   color: #000000;
 }
 
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .hero-slider {
+    height: 95vh;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-slider {
-    height: 75vh; 
+    height: 90vh;
   }
 
   .hero-name {
@@ -131,7 +139,7 @@
 
 @media (max-width: 480px) {
   .hero-slider {
-    height: 60vh; 
+    height: 85vh;
   }
 
   .hero-name {
