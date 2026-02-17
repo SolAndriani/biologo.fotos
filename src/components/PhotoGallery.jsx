@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import Masonry from "react-masonry-css";
+import ImageModal from "./ImageModal";
 import "./PhotoGallery.css";
 
 export default function PhotoGallery({ photos }) {
@@ -12,68 +12,34 @@ export default function PhotoGallery({ photos }) {
 
   const breakpointColumnsObj = { default: 4, 1100: 3, 700: 2, 500: 1 };
 
-  const prevImage = () =>
-    setPhotoIndex((photoIndex + photos.length - 1) % photos.length);
-  const nextImage = () =>
-    setPhotoIndex((photoIndex + 1) % photos.length);
-
   return (
     <div className="photo-gallery">
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
+        className="masonry-grid"
+        columnClassName="masonry-column"
       >
         {photos.map((url, index) => (
           <img
             key={index}
             src={url}
             alt={`photo-${index}`}
+            className="gallery-thumb"
             onClick={() => {
               setPhotoIndex(index);
               setIsOpen(true);
             }}
-            className="gallery-thumb"
           />
         ))}
       </Masonry>
 
       {isOpen && (
-        <div className="gallery-overlay" onClick={() => setIsOpen(false)}>
-          <button
-            className="gallery-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(false);
-            }}
-          >
-            {"✕"}
-          </button>
-          <button
-            className="gallery-prev"
-            onClick={(e) => {
-              e.stopPropagation();
-              prevImage();
-            }}
-          >
-            {"<"} {/* Reemplazo React-friendly */}
-          </button>
-          <img
-            src={photos[photoIndex]}
-            alt={`photo-${photoIndex}`}
-            className="gallery-image"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <button
-            className="gallery-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              nextImage();
-            }}
-          >
-            {">"} {/* Reemplazo React-friendly */}
-          </button>
-        </div>
+        <ImageModal
+          photos={photos}
+          photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
+          onClose={() => setIsOpen(false)}
+        />
       )}
     </div>
   );

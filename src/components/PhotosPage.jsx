@@ -1,28 +1,36 @@
-// PhotosPage.jsx
-import React, { useState, useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import UploadForm from "./Footer/UploadForm";
 import PhotoGallery from "./PhotoGallery";
-import "./PhotosPage.css";
+import "./PhotoGallery.css"; // solo este CSS
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-export default function PhotosPage({ loggedIn }) {
+export default function PhotosPage() {
   const { category } = useParams();
   const lowerCategory = category?.toLowerCase().replace(/[\s-]/g, "");
+
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   const staticPhotos = {
-    animales: [     
-
+    animales: [   
+      
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364212/animal81_hnk0zw.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364215/animal80_wy2k2k.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364209/animal82_uinflu.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364218/animal77_gqbtux.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364221/animal79_hlacwr.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364224/animal74_ygxrwf.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364227/animal78_qtozbf.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364230/animal76_cqxqtd.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364233/animal75_r5adii.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364236/animal73_xv3o76.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364240/animal71_j6o2wo.jpg",
+      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364243/animal70_yn7ln3.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636471/animal56_eysgpi.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636456/animal69_bkeqfz.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636401/animal63_smcvhb.jpg",
-      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636384/animal62_pbmq49.jpg",
-      "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636381/animal59_qemhoa.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636379/animal61_bvztt9.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636376/animal62_pirlig.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1764636376/animal61_dnxegj.jpg",
@@ -139,15 +147,20 @@ export default function PhotosPage({ loggedIn }) {
     ]
   };
 
-  const loadPhotos = async () => {
+   const loadPhotos = useCallback(async () => {
     if (!lowerCategory) return;
-
     setLoading(true);
 
     try {
-      const res = await axios.get(`${backendUrl}/api/photos/category/${lowerCategory}`);
-      const dynamicPhotos = res.data?.photos?.map((p) => p.url) || [];
-      const allPhotos = [...(staticPhotos[lowerCategory] || []), ...dynamicPhotos.filter(url => !(staticPhotos[lowerCategory] || []).includes(url))];
+      const res = await axios.get(
+        `${backendUrl}/api/photos/category/${lowerCategory}`
+      );
+
+      const dynamicPhotos = res.data?.photos?.map(p => p.url) || [];
+      const staticList = staticPhotos[lowerCategory] || [];
+
+      const allPhotos = [...new Set([...staticList, ...dynamicPhotos])];
+
       setPhotos(allPhotos);
     } catch (err) {
       console.error("Error cargando fotos:", err);
@@ -155,19 +168,22 @@ export default function PhotosPage({ loggedIn }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [lowerCategory]);
 
   useEffect(() => {
     loadPhotos();
-  }, [lowerCategory]);
+  }, [loadPhotos]);
 
-  if (!lowerCategory || !staticPhotos[lowerCategory]) return <p>Categoría no encontrada</p>;
+  if (!lowerCategory || !staticPhotos[lowerCategory]) {
+    return <div className="photos-page"><p className="photos-message">Categoría no encontrada</p></div>;
+  }
 
-  if (loading) return <p>Cargando fotos...</p>;
+  if (loading) {
+    return <div className="photos-page"><p className="photos-message">Cargando fotos...</p></div>;
+  }
 
   return (
     <div className="photos-page">
-      {loggedIn && <UploadForm categorySelected={lowerCategory} onUploadSuccess={loadPhotos} />}
       <PhotoGallery photos={photos} />
     </div>
   );

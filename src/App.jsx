@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import HeroSlider from "./components/HeroSlider";
 import AboutSection from "./components/AboutSection";
 import GallerySection from "./components/GallerySection";
-import Footer from "./components/Footer/Footer";
 import PhotosPage from "./components/PhotosPage";
 import ImageModal from "./components/ImageModal";
+import SocialIcons from "./Footer/SocialIcons";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -14,20 +15,6 @@ function App() {
     JSON.parse(localStorage.getItem("user")) || null
   );
   const [photosUpdated, setPhotosUpdated] = useState(false);
-
-  const handleLoginSuccess = (user) => {
-    localStorage.setItem("user", JSON.stringify(user));
-    setLoggedUser(user);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setLoggedUser(null);
-  };
-
-  const refreshPhotos = () => {
-    setPhotosUpdated(prev => !prev); 
-  };
 
   return (
     <>
@@ -44,6 +31,7 @@ function App() {
             </>
           }
         />
+
         <Route
           path="/:category"
           element={
@@ -56,15 +44,13 @@ function App() {
       </Routes>
 
       {selectedImage && (
-        <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
+        <ImageModal
+          image={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
       )}
 
-      <Footer
-        loggedUser={loggedUser}
-        onLoginSuccess={handleLoginSuccess}
-        onLogout={handleLogout}
-        onUploadSuccess={refreshPhotos} 
-      />
+      <SocialIcons />
     </>
   );
 }

@@ -8,11 +8,11 @@ export default function GallerySection() {
   const sectionRef = useRef(null);
   const { t } = useTranslation();
 
-  // Definimos las categorías usando claves, no traducciones directas
+ 
   const categories = [
-    { key: 'animals', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758027815/animal24_bgj5zh.jpg', route: '/Animales' },
+    { key: 'animals', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364218/animal77_gqbtux.jpg', route: '/Animales' },
     { key: 'landscapes', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028406/paisaje11_u4bsqx.jpg', route: '/paisajes' },
-    { key: 'black_and_white', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028497/foto8_wu5dzp.jpg', route: '/black-and-white' }
+    { key: 'black_and_white', image: 'https://res.cloudinary.com/dmixd7wpb/image/upload/v1758028503/foto11_rp1kq0.jpg', route: '/black-and-white' }
   ];
 
   useEffect(() => {
@@ -63,5 +63,4 @@ export default function GallerySection() {
     </section>
   );
 }
-
 
