@@ -2,19 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import PhotoGallery from "./PhotoGallery";
-import "./PhotoGallery.css"; // solo este CSS
+import "./PhotoGallery.css";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-export default function PhotosPage() {
-  const { category } = useParams();
-  const lowerCategory = category?.toLowerCase().replace(/[\s-]/g, "");
-
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const staticPhotos = {
-    animales: [   
+const staticPhotos = {
+  animales: [
       
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364212/animal81_hnk0zw.jpg",
       "https://res.cloudinary.com/dmixd7wpb/image/upload/v1771364215/animal80_wy2k2k.jpg",
@@ -147,23 +140,34 @@ export default function PhotosPage() {
     ]
   };
 
-   const loadPhotos = useCallback(async () => {
+   
+export default function PhotosPage() {
+  const { category } = useParams();
+  const lowerCategory = category?.toLowerCase().replace(/[\s-]/g, "");
+
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const loadPhotos = useCallback(async () => {
     if (!lowerCategory) return;
+
     setLoading(true);
+    setError("");
 
     try {
       const res = await axios.get(
         `${backendUrl}/api/photos/category/${lowerCategory}`
       );
-
-      const dynamicPhotos = res.data?.photos?.map(p => p.url) || [];
+      const dynamicPhotos = res.data?.photos?.map((p) => p.url) || [];
       const staticList = staticPhotos[lowerCategory] || [];
 
-      const allPhotos = [...new Set([...staticList, ...dynamicPhotos])];
-
-      setPhotos(allPhotos);
+      
+      setPhotos([...new Set([...staticList, ...dynamicPhotos])]);
     } catch (err) {
       console.error("Error cargando fotos:", err);
+      setError("No se pudieron cargar las fotos del backend.");
+      
       setPhotos(staticPhotos[lowerCategory] || []);
     } finally {
       setLoading(false);
@@ -174,17 +178,30 @@ export default function PhotosPage() {
     loadPhotos();
   }, [loadPhotos]);
 
-  if (!lowerCategory || !staticPhotos[lowerCategory]) {
-    return <div className="photos-page"><p className="photos-message">Categoría no encontrada</p></div>;
+  if (!lowerCategory) {
+    return (
+      <div className="photos-page">
+        <p className="photos-message">Categoría no especificada.</p>
+      </div>
+    );
   }
 
   if (loading) {
-    return <div className="photos-page"><p className="photos-message">Cargando fotos...</p></div>;
+    return (
+      <div className="photos-page">
+        <p className="photos-message">Cargando fotos...</p>
+      </div>
+    );
   }
 
   return (
     <div className="photos-page">
-      <PhotoGallery photos={photos} />
+      {error && <p className="error-message">{error}</p>}
+      {photos.length === 0 ? (
+        <p className="photos-message">No hay fotos disponibles.</p>
+      ) : (
+        <PhotoGallery photos={photos} />
+      )}
     </div>
   );
 }

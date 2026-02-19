@@ -3,7 +3,7 @@ import Masonry from "react-masonry-css";
 import ImageModal from "./ImageModal";
 import "./PhotoGallery.css";
 
-export default function PhotoGallery({ photos }) {
+export default function PhotoGallery({ photos, loadMore }) {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
@@ -19,19 +19,33 @@ export default function PhotoGallery({ photos }) {
         className="masonry-grid"
         columnClassName="masonry-column"
       >
-        {photos.map((url, index) => (
-          <img
-            key={index}
-            src={url}
-            alt={`photo-${index}`}
-            className="gallery-thumb"
-            onClick={() => {
-              setPhotoIndex(index);
-              setIsOpen(true);
-            }}
-          />
-        ))}
+        {photos.map((url, index) => {
+          // Genera thumbnail solo si el URL tiene "/upload/"
+          const thumbUrl = url.includes("/upload/")
+            ? url.replace("/upload/", "/upload/w_400,h_300,c_fill/")
+            : url;
+
+          return (
+            <img
+              key={index}
+              src={thumbUrl}
+              alt={`photo-${index}`}
+              className="gallery-thumb"
+              loading="lazy"
+              onClick={() => {
+                setPhotoIndex(index);
+                setIsOpen(true);
+              }}
+            />
+          );
+        })}
       </Masonry>
+
+      {loadMore && photos.length > 0 && (
+        <button className="load-more-btn" onClick={loadMore}>
+          Cargar más
+        </button>
+      )}
 
       {isOpen && (
         <ImageModal
