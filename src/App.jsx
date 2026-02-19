@@ -8,6 +8,7 @@ import GallerySection from "./components/GallerySection";
 import PhotosPage from "./components/PhotosPage";
 import ImageModal from "./components/ImageModal";
 import SocialIcons from "./Footer/SocialIcons";
+import VideoSection from "./components/VideoSection";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,6 +29,7 @@ function App() {
               <HeroSlider />
               <AboutSection />
               <GallerySection onImageClick={setSelectedImage} />
+              <VideoSection />
             </>
           }
         />
