@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import "./AdminPage.css";
 
-const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || "dbkpfcqqp";
 const UPLOAD_PRESET = "kalinowski_upload";
 
 const CATEGORIAS = [
@@ -14,6 +14,26 @@ const CATEGORIAS = [
   { label: "Videos", tag: "videos", folder: "videos" },
 ];
 
+async function fetchFotos(tag) {
+  const url = `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${tag}.json`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.resources.map((r) => ({
+    url: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_300,h_200,c_fill/${r.public_id}.${r.format}`,
+    public_id: r.public_id,
+  }));
+}
+
+async function eliminarFoto(public_id) {
+  const res = await fetch("/api/delete-image", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ public_id }),
+  });
+  return res.ok;
+}
+
 export default function AdminPage() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -23,6 +43,17 @@ export default function AdminPage() {
   const [archivos, setArchivos] = useState([]);
   const [subiendo, setSubiendo] = useState(false);
   const [subidos, setSubidos] = useState(0);
+  const [fotos, setFotos] = useState([]);
+  const [cargandoFotos, setCargandoFotos] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    setCargandoFotos(true);
+    fetchFotos(categoria.tag).then((imgs) => {
+      setFotos(imgs);
+      setCargandoFotos(false);
+    });
+  }, [user, categoria]);
 
   const login = async () => {
     try {
@@ -64,7 +95,18 @@ export default function AdminPage() {
 
     setSubiendo(false);
     setArchivos([]);
+    fetchFotos(categoria.tag).then((imgs) => setFotos(imgs));
     alert(`✅ ${archivos.length} archivo${archivos.length > 1 ? "s subidos" : " subido"} correctamente`);
+  };
+
+  const handleEliminar = async (public_id) => {
+    if (!window.confirm("¿Seguro que querés eliminar esta foto?")) return;
+    const ok = await eliminarFoto(public_id);
+    if (ok) {
+      setFotos((prev) => prev.filter((f) => f.public_id !== public_id));
+    } else {
+      alert("Error al eliminar la foto");
+    }
   };
 
   if (!user) {
@@ -100,7 +142,10 @@ export default function AdminPage() {
       <div className="admin-box">
         <div className="admin-header">
           <h1 className="admin-titulo">SUBIR FOTOS</h1>
-          <button className="admin-boton-salir" onClick={logout}>Salir</button>
+          <div className="admin-header-botones">
+            <a href="/" className="admin-boton-ver">Ver sitio</a>
+            <button className="admin-boton-salir" onClick={logout}>Salir</button>
+          </div>
         </div>
 
         <p className="admin-label">Categoría</p>
@@ -142,6 +187,27 @@ export default function AdminPage() {
         >
           {subiendo ? "Subiendo..." : "Subir"}
         </button>
+
+        <p className="admin-label" style={{ marginTop: "2.5rem" }}>
+          Fotos en {categoria.label} ({fotos.length})
+        </p>
+        {cargandoFotos ? (
+          <p className="admin-info">Cargando...</p>
+        ) : (
+          <div className="admin-preview-grid">
+            {fotos.map((foto, i) => (
+              <div key={i} className="admin-preview-item">
+                <img src={foto.url} alt={`foto-${i}`} className="admin-preview-img" />
+                <button
+                  className="admin-eliminar-btn"
+                  onClick={() => handleEliminar(foto.public_id)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
