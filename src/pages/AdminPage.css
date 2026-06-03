@@ -1,0 +1,143 @@
+.admin-login-container,
+.admin-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f6;
+  font-family: "Montserrat", sans-serif;
+  padding: 2rem;
+}
+
+.admin-login-box,
+.admin-box {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 3rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.admin-titulo {
+  font-family: "Sora", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.admin-subtitulo {
+  color: #888;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  margin: 0 0 1rem 0;
+}
+
+.admin-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.admin-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-cat-boton {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background-color: #f0f0f0;
+  color: #111;
+  transition: all 0.2s ease;
+}
+
+.admin-cat-boton.activo {
+  background-color: #111;
+  color: #fff;
+}
+
+.admin-input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-input-file {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+}
+
+.admin-boton {
+  margin-top: 1.5rem;
+  padding: 0.9rem 2rem;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.2s ease;
+}
+
+.admin-boton.deshabilitado {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-boton-salir {
+  padding: 0.4rem 1rem;
+  background-color: transparent;
+  border: 1px solid #111;
+  font-family: "Sora", sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.admin-error {
+  color: red;
+  font-size: 0.85rem;
+}
+
+.admin-info {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 500px) {
+  .admin-login-box,
+  .admin-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .admin-titulo {
+    font-size: 1.4rem;
+  }
+}

@@ -6,6 +6,7 @@ import GallerySection from "./components/GallerySection";
 import PhotosPage from "./components/PhotosPage";
 import SocialIcons from "./Footer/SocialIcons";
 import VideoSection from "./components/VideoSection";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           }
         />
         <Route path="/:category" element={<PhotosPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       <SocialIcons />
     </>
