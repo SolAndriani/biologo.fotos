@@ -1,26 +1,16 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Header from "./components/Header";
 import HeroSlider from "./components/HeroSlider";
 import AboutSection from "./components/AboutSection";
 import GallerySection from "./components/GallerySection";
 import PhotosPage from "./components/PhotosPage";
-import ImageModal from "./components/ImageModal";
 import SocialIcons from "./Footer/SocialIcons";
 import VideoSection from "./components/VideoSection";
 
 function App() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [loggedUser, setLoggedUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
-  const [photosUpdated, setPhotosUpdated] = useState(false);
-
   return (
     <>
-      <Header loggedUser={loggedUser} />
-
+      <Header />
       <Routes>
         <Route
           path="/"
@@ -28,30 +18,13 @@ function App() {
             <>
               <HeroSlider />
               <AboutSection />
-              <GallerySection onImageClick={setSelectedImage} />
+              <GallerySection />
               <VideoSection />
             </>
           }
         />
-
-        <Route
-          path="/:category"
-          element={
-            <PhotosPage
-              loggedUser={loggedUser}
-              photosUpdated={photosUpdated}
-            />
-          }
-        />
+        <Route path="/:category" element={<PhotosPage />} />
       </Routes>
-
-      {selectedImage && (
-        <ImageModal
-          image={selectedImage}
-          onClose={() => setSelectedImage(null)}
-        />
-      )}
-
       <SocialIcons />
     </>
   );

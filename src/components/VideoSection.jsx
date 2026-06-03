@@ -1,40 +1,48 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./VideoSection.css";
 
-const videos = [
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771504070/WhatsApp_Video_2026-02-17_at_22.33.55_2_xyw05h.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771504007/WhatsApp_Video_2026-02-17_at_22.33.46_2_pj72ft.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771359844/WhatsApp_Video_2026-02-17_at_14.18.11_g4xire.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771503987/WhatsApp_Video_2026-02-17_at_22.33.44_1_nvpkf4.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771503914/WhatsApp_Video_2026-02-17_at_22.33.44_bftote.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771503945/WhatsApp_Video_2026-02-17_at_22.33.45_kfkmhu.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771503995/WhatsApp_Video_2026-02-17_at_22.33.46_1_oqtruw.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771503959/WhatsApp_Video_2026-02-17_at_22.33.45_1_aenkxb.mp4",
-  "https://res.cloudinary.com/dmixd7wpb/video/upload/v1771359823/WhatsApp_Video_2026-02-17_at_14.18.08_tnnffj.mp4"
-];
+const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+
+async function fetchVideos() {
+  const url = `https://res.cloudinary.com/${CLOUD_NAME}/video/list/videos.json`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.resources.map(
+    (r) => `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/${r.public_id}.${r.format}`
+  );
+}
 
 export default function VideoSection() {
   const trackRef = useRef(null);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
+    fetchVideos().then((vids) => setVideos(vids));
+  }, []);
+
+  useEffect(() => {
+    if (videos.length === 0) return;
     const track = trackRef.current;
     let position = 0;
-    const speed = 0.5; // velocidad ligeramente más rápida
+    const speed = 0.5;
 
     const loop = () => {
       position -= speed;
-      if (position <= -track.scrollWidth / 2) position = 0;
+      if (position <= -track.scrollWidth / 3) position = 0;
       track.style.transform = `translateX(${position}px)`;
       requestAnimationFrame(loop);
     };
 
     loop();
-  }, []);
+  }, [videos]);
+
+  if (videos.length === 0) return null;
 
   return (
     <section className="video-section">
       <div className="video-track" ref={trackRef}>
-        {[...videos, ...videos].map((url, idx) => (
+        {[...videos, ...videos, ...videos].map((url, idx) => (
           <div className="video-card" key={idx}>
             <video src={url} muted autoPlay loop playsInline />
           </div>
