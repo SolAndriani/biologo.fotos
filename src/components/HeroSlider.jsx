@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import "./HeroSlider.css";
 
 const CLOUD_NAME = "dbkpfcqqp";
@@ -19,6 +20,7 @@ export default function HeroSlider() {
   const [paused, setPaused] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const sliderRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchSliderImages().then((imgs) => {
@@ -68,9 +70,9 @@ export default function HeroSlider() {
         <p>PHOTOGRAPHY</p>
 
         <div className="hero-buttons">
-          <button onClick={() => handleScroll("sobre-mi")}>MI HISTORIA</button>
-          <button onClick={() => handleScroll("coleccion")}>COLECCIÓN</button>
-          <button onClick={() => handleScroll("contacto")}>CONTACTO</button>
+          <button onClick={() => handleScroll("sobre-mi")}>{t("menu.about")}</button>
+          <button onClick={() => handleScroll("coleccion")}>{t("menu.projects")}</button>
+          <button onClick={() => handleScroll("contacto")}>{t("menu.contact")}</button>
         </div>
       </div>
     </section>
